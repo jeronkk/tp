@@ -2,7 +2,7 @@ package seedu.address;
 
 import java.util.logging.Logger;
 
-import javafx.application.Application;
+import javafx.application.Application; // test commit permissions
 import seedu.address.commons.core.LogsCenter;
 
 /**
