@@ -11,16 +11,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
 ### Jane Doe
 
 <img src="images/johndoe.png" width="200px">
@@ -31,11 +21,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Huang Tian
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/huangtian666.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/huangtian666)] [[portfolio](team/huangtian666.md)]
 
 * Role: Developer
 * Responsibilities: Data
