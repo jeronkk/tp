@@ -11,21 +11,21 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Jane Doe
+### Brandon Koh
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/brvndonkoh.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/brvndonkoh)]
+[[portfolio](team/brvndonkoh.md)]
 
-* Role: Team Lead
+* Role: Developers
 * Responsibilities: UI
 
-### Johnny Doe
+### Huang Tian
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/huangtian666.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/huangtian666)] [[portfolio](team/huangtian666.md)]
 
 * Role: Developer
 * Responsibilities: Data
@@ -40,12 +40,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Jeron Kor
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jeronkk.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/jeronkk)]
+[[portfolio](team/jeronkk.md)]
 
 * Role: Developer
 * Responsibilities: UI
