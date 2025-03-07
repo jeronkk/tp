@@ -11,16 +11,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
 ### Jane Doe
 
 <img src="images/johndoe.png" width="200px">
@@ -40,11 +30,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### David Chong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/davidchongg.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/davidchongg)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
