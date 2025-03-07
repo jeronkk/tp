@@ -11,14 +11,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Jane Doe
+### Brandon Koh
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/brvndonkoh.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/brvndonkoh)]
+[[portfolio](team/brvndonkoh.md)]
 
-* Role: Team Lead
+* Role: Developers
 * Responsibilities: UI
 
 ### Huang Tian
