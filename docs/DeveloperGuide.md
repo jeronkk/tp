@@ -274,7 +274,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* tutors who need to manage a significant number of contacts and lesson details
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
@@ -287,29 +287,47 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​  | I want to …​                       | So that I can…​                                                                    |
+|----------|----------|------------------------------------|------------------------------------------------------------------------------------|
+| `* * *`  | new user | see usage instructions             | refer to instructions when I forget how to use the App                             |
+| `* * *`  | user     | add a student                      | keep track of all students and can refer to their contact details when I need      |
+| `* * *`  | user     | delete a student                   | remove outdated or irrelevant student contact details                              |
+| `* * *`  | user     | view all students' contact details | easily access students’ information and retrieve their contact details efficiently |
+| `* * *`  | user     | find a student by his/her name     | locate details of students without having to go through the entire list            |
+| `* *`    | user     | edit a contact details             | update new information without having to go through the process of delete and add  |
+| `* *`    | user     | filter lessons by date             | view all lessons scheduled on a particular day                                     |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `AddressBook (TutorProMax)` and the **Actor** is the `user (tutor)`, unless specified otherwise)
 
+**Use case: Add a student**
+
+**MSS**
+1. User requests to add a specific person in the list
+2. TutorProMax adds the student
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The student already exists in the list
+
+* 1a1. TutorProMax shows an error message
+
+  * Use case resumes at step 2
+
+    
 **Use case: Delete a person**
 
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  TutorProMax shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  TutorProMax deletes the person
 
     Use case ends.
 
@@ -321,9 +339,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. TutorProMax shows an error message.
 
       Use case resumes at step 2.
+
+
+**Use case: Find a student by his/her name**
+
+**MSS**
+
+1. User requests to search for a student by name
+2. TutorProMax searches for the student in the list
+3. TutorProMax displays the matching student(s)
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No matching student found
+
+* 2a1. TutorProMax displays a message indicating that no student matches the given name
+
+    Use case ends
+
 
 *{More to be added}*
 
@@ -332,13 +370,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. The system should not require additional dependencies beyond standard Java libraries for core functionalities.
 
 *{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Tutor**: Tutor who conducts weekly one to one, face-to-face lessons with his/her student
 
 --------------------------------------------------------------------------------------------------------------------
 
