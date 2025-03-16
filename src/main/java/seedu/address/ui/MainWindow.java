@@ -60,8 +60,6 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        primaryStage.setTitle("TutorProMax");
-
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
