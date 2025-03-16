@@ -61,7 +61,10 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
+                + "Please provide a number between 1 and " + model.getFilteredPersonList().size();
+
+        assertCommandException(deleteCommand, expectedMessage);
     }
 
     @Test
