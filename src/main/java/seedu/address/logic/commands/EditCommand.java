@@ -199,9 +199,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-        public void setTuitionTime(TuitionTime tuitionTime) { this.tuitionTime = tuitionTime; }
+        public void setTuitionTime(TuitionTime tuitionTime) {
+            this.tuitionTime = tuitionTime;
+        }
 
-        public Optional<TuitionTime> getTuitionTime() { return Optional.ofNullable(tuitionTime); }
+        public Optional<TuitionTime> getTuitionTime() {
+            return Optional.ofNullable(tuitionTime);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
