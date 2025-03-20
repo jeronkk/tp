@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MATH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SCIENCE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class TypicalPersons {
             .withTuitionTime("Wednesday 0930-1130").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("10th street")
-            .withTuitionTime("Thursday 1500-1700").withTags("friends").build();
+            .withTuitionTime("Thursday 1500-1700").withTags("English").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave")
             .withTuitionTime("Friday 0800-1000").build();
@@ -58,10 +58,10 @@ public class TypicalPersons {
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-            .withTuitionTime("Wednesday 1000-1200").withTags(VALID_TAG_FRIEND).build();
+            .withTuitionTime("Wednesday 1000-1200").withTags(VALID_TAG_MATH).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withTuitionTime("Thursday 1400-1600").withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+            .withTuitionTime("Thursday 1400-1600").withTags(VALID_TAG_SCIENCE, VALID_TAG_MATH).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
