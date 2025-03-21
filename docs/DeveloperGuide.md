@@ -319,7 +319,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   * Use case resumes at step 2
 
-    
+
 **Use case: Delete a person**
 
 **MSS**
