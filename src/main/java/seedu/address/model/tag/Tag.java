@@ -1,9 +1,9 @@
 package seedu.address.model.tag;
 
-import seedu.address.commons.util.StringUtil;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Represents a Tag in the address book.
@@ -34,7 +34,10 @@ public class Tag {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public boolean equalsIgnoreCase (String test) {
+    /**
+     * Returns true if a given string is equal to the tag ignoring case of the strings
+     */
+    public boolean equalsIgnoreCase(String test) {
         return StringUtil.containsWordIgnoreCase(tagName, test);
     }
 
