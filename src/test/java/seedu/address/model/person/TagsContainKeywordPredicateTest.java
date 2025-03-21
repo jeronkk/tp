@@ -65,6 +65,7 @@ public class TagsContainKeywordPredicateTest {
                 .withAddress("main").withTags("chemistry", "biology").build()));
     }
 
+    @Test
     public void toStringMethod() {
         String keyword = "chemistry";
         TagsContainKeywordPredicate predicate = new TagsContainKeywordPredicate(keyword);
