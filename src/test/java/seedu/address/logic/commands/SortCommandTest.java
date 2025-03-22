@@ -68,6 +68,55 @@ public class SortCommandTest {
         assertEquals(expected, model.getFilteredPersonList());
     }
 
+    @Test
+    public void execute_phoneFieldAscending_sortsCorrectly() throws Exception {
+        Person alice = new PersonBuilder().withName("Alice").withPhone("1111").build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("2222").build();
+        Person charlie = new PersonBuilder().withName("Charlie").withPhone("3333").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(charlie, bob, alice);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("phone", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(alice, bob, charlie);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_emailFieldAscending_sortsCorrectly() throws Exception {
+        Person alice = new PersonBuilder().withName("Alice").withEmail("a@example.com").build();
+        Person bob = new PersonBuilder().withName("Bob").withEmail("b@example.com").build();
+        Person charlie = new PersonBuilder().withName("Charlie").withEmail("c@example.com").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(charlie, bob, alice);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("email", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(alice, bob, charlie);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_tuitionFieldAscending_sortsCorrectly() throws Exception {
+        Person monday = new PersonBuilder().withName("Monday").withTuitionTime("Monday 0900-1100").build();
+        Person friday = new PersonBuilder().withName("Friday").withTuitionTime("Friday 1200-1300").build();
+        Person sunday = new PersonBuilder().withName("Sunday").withTuitionTime("Sunday 1400-1500").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(sunday, friday, monday);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("tuition", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(monday, friday, sunday);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+
     private static class SimpleModelStub implements Model {
         private final ObservableList<Person> list;
 
