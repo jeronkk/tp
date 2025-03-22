@@ -9,7 +9,10 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TuitionTimeUtil;
 
-
+/**
+	* Sorts the person list based on a specified field and order (ascending or descending).
+	* Supported fields: name, phone, email, address, tuition.
+	*/
 public class SortCommand extends Command {
 
 	public static final String COMMAND_WORD = "sort";
@@ -21,11 +24,25 @@ public class SortCommand extends Command {
 	private final String sortField;
 	private final boolean ascending;
 
+	/**
+		* Creates a SortCommand.
+		*
+		* @param sortField The field to sort by (e.g. "name", "phone", "tuition").
+		* @param ascending True to sort in ascending order, false for descending.
+		*/
 	public SortCommand(String sortField, boolean ascending) {
 		this.sortField = sortField.toLowerCase();
 		this.ascending = ascending;
 	}
 
+	/**
+		* Executes the sort command by sorting the filtered person list in the model
+		* according to the specified field and order.
+		*
+		* @param model The model which contains the person list to be sorted.
+		* @return A {@code CommandResult} indicating the outcome of the command.
+		* @throws CommandException If an invalid sort field is provided.
+		*/
 	@Override
 	public CommandResult execute (Model model) throws CommandException {
 		requireNonNull(model);
@@ -68,6 +85,12 @@ public class SortCommand extends Command {
 		return new CommandResult(String.format(MESSAGE_SUCCESS, sortField, direction));
 	}
 
+	/**
+		* Checks if two SortCommand instances are equal by comparing their sort fields and order.
+		*
+		* @param other The object to compare against.
+		* @return True if both commands sort by the same field and order; false otherwise.
+		*/
 	@Override
 	public boolean equals(Object other) {
 		return other instanceof SortCommand
