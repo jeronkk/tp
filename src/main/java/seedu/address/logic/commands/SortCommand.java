@@ -7,6 +7,8 @@ import java.util.Comparator;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.TuitionTimeUtil;
+
 
 public class SortCommand extends Command {
 
@@ -45,7 +47,7 @@ public class SortCommand extends Command {
 			break;
 		case "tuition":
 		case "tuitionTime":
-			comparator = Comparator.comparing(p -> p.getTuitionTime().value.toLowerCase());
+			comparator = Comparator.comparing(p -> TuitionTimeUtil.getSortKey(p.getTuitionTime().value));
 			break;
 		/*case "tag":
 		case "tags":
