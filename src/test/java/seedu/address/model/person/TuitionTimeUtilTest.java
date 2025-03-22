@@ -26,4 +26,15 @@ public class TuitionTimeUtilTest {
         assertEquals("8_1234", TuitionTimeUtil.getSortKey("Blursday 1234-5678")); // unknown day
         assertEquals("8_9999", TuitionTimeUtil.getSortKey("Holiday 9999-1111")); // another unknown day
     }
+
+    @Test
+    public void getSortKey_extraSpaces_stillParsesCorrectly() {
+        assertEquals("4_1300", TuitionTimeUtil.getSortKey("  Thursday    1300-1500 "));
+    }
+
+    @Test
+    public void getSortKey_malformedTimeRange_returnsPartialKey() {
+        assertEquals("5_1400", TuitionTimeUtil.getSortKey("Friday 1400")); // no dash
+        assertEquals("5_1400", TuitionTimeUtil.getSortKey("Friday 1400-")); // incomplete range
+    }
 }
