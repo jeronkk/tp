@@ -46,8 +46,12 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+        // ✅ Initialize model with sample persons
+        model = new ModelManager(seedu.address.testutil.TypicalPersons.getTypicalAddressBook(), new UserPrefs());
         logic = new LogicManager(model, storage);
     }
+
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {

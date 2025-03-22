@@ -5,7 +5,7 @@
       "phone": "94351253",
       "email": "alice@example.com",
       "address": "123, Jurong West Ave 6, #08-111",
-      "tuitionTime": "Monday 1400-1600",
+      "tuitionTime": "Monday, 1400-1600",
       "tags": ["Math"]
     },
     {
@@ -13,7 +13,7 @@
       "phone": "94351253",
       "email": "pauline@example.com",
       "address": "4th street",
-      "tuitionTime": "Tuesday 1000-1200",
+      "tuitionTime": "Tuesday, 1000-1200",
       "tags": []
     }
   ]

@@ -125,7 +125,13 @@ public class ParserUtil {
         if (!TuitionTime.isValidTuitionTime(trimmedTime)) {
             throw new ParseException(TuitionTime.MESSAGE_CONSTRAINTS);
         }
-        return new TuitionTime(trimmedTime);
+
+        StringBuilder sb = new StringBuilder();
+        String[] time = trimmedTime.split(",");
+        String standardisedDay = DayMapping.map(time[0]);
+        String standardisedTime = sb.append(standardisedDay).append(',').append(time[1]).toString();
+
+        return new TuitionTime(standardisedTime);
     }
 
     /**
