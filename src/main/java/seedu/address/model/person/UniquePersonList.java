@@ -63,7 +63,6 @@ public class UniquePersonList implements Iterable<Person> {
         if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
             throw new DuplicatePersonException();
         }
-
         internalList.set(index, editedPerson);
     }
 
@@ -103,7 +102,7 @@ public class UniquePersonList implements Iterable<Person> {
         return internalUnmodifiableList;
     }
 
-    public ObservableList<Person> asModifiableObservableList() {return internalList; }
+    public ObservableList<Person> asModifiableObservableList() { return internalList; }
 
     @Override
     public Iterator<Person> iterator() {
