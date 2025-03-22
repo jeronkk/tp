@@ -104,15 +104,16 @@ public class SortCommandTest {
     public void execute_tuitionFieldAscending_sortsCorrectly() throws Exception {
         Person monday = new PersonBuilder().withName("Monday").withTuitionTime("Monday 0900-1100").build();
         Person friday = new PersonBuilder().withName("Friday").withTuitionTime("Friday 1200-1300").build();
+        Person saturday = new PersonBuilder().withName("Saturday").withTuitionTime("Saturday 1400-1500").build();
         Person sunday = new PersonBuilder().withName("Sunday").withTuitionTime("Sunday 1400-1500").build();
 
-        ObservableList<Person> list = FXCollections.observableArrayList(sunday, friday, monday);
+        ObservableList<Person> list = FXCollections.observableArrayList(sunday, friday, monday, saturday);
         SimpleModelStub model = new SimpleModelStub(list);
 
         SortCommand command = new SortCommand("tuition", true);
         command.execute(model);
 
-        List<Person> expected = Arrays.asList(monday, friday, sunday);
+        List<Person> expected = Arrays.asList(monday, friday, saturday, sunday);
         assertEquals(expected, model.getFilteredPersonList());
     }
 

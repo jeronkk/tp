@@ -17,6 +17,7 @@ public class SortCommandParserTest {
         assertParseSuccess(parser, "name asc", expected);
     }
 
+
     @Test
     public void parse_validInputEmailDesc_returnsSortCommand() throws Exception {
         SortCommand expected = new SortCommand("email", false);
@@ -42,6 +43,23 @@ public class SortCommandParserTest {
     @Test
     public void parse_invalidDirection_throwsParseException() {
         assertParseFailure(parser, "name upwards", "Invalid sort order. Use 'asc' or 'desc'.");
+    }
+
+    @Test
+    public void parse_caseInsensitiveInput_returnsSortCommand() throws Exception {
+        SortCommand expected = new SortCommand("email", false);
+        assertParseSuccess(parser, "By EMAIL Desc", expected);
+    }
+
+    @Test
+    public void parse_validInputWithBy_returnsSortCommand() throws Exception {
+        SortCommand expected = new SortCommand("phone", true);
+        assertParseSuccess(parser, "by phone", expected);
+    }
+
+    @Test
+    public void parse_invalidDirectionWithBy_throwsParseException() {
+        assertParseFailure(parser, "by name up", "Invalid sort order. Use 'asc' or 'desc'.");
     }
 
     @Test
