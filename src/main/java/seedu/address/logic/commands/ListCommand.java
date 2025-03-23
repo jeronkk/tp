@@ -15,7 +15,8 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Listed all students";
+    public static final String EMPTY_LIST = "No student found.";
 
     private final Predicate<Person> predicate;
     private final String resultMessage;
@@ -31,15 +32,42 @@ public class ListCommand extends Command {
     /**
      * List command to list all persons with tags matching the given keyword
      */
-    public ListCommand(Predicate<Person> predicate, String keyword) {
+    public ListCommand(Predicate<Person> predicate, String successMessage, String keyword) {
         this.predicate = predicate;
-        this.resultMessage = "Listed all persons with subject " + keyword;
+        this.resultMessage = successMessage + keyword;
     }
 
+    /**
+     * Executes the ListCommand by updating the model's filtered person list based on the provided predicate.
+     * Returns a CommandResult indicating success or an empty result if no persons match the filter.
+     *
+     * @param model the model containing the person list to be filtered
+     * @return the result of command execution with an appropriate message
+     * @throws NullPointerException if the model is null
+     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(this.predicate);
-        return new CommandResult(resultMessage);
+        if (model.getFilteredPersonList().isEmpty()) {
+            return new CommandResult(EMPTY_LIST);
+        } else {
+            return new CommandResult(resultMessage);
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ListCommand)) {
+            return false;
+        }
+
+        ListCommand otherListCommand = (ListCommand) other;
+        return predicate.equals(otherListCommand.predicate);
     }
 }

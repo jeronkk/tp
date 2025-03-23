@@ -25,7 +25,7 @@ public class SampleDataUtil {
                         new Phone("87438807"),
                         new Email("alexyeoh@example.com"),
                         new Address("Blk 30 Geylang Street 29, #06-40"),
-                        new TuitionTime("Monday 1400-1600"),
+                        new TuitionTime("Monday, 1400-1600"),
                         getTagSet("Math")
                 ),
             new Person(
@@ -33,7 +33,7 @@ public class SampleDataUtil {
                         new Phone("99272758"),
                         new Email("berniceyu@example.com"),
                         new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                        new TuitionTime("Tuesday 1000-1200"),
+                        new TuitionTime("Tuesday, 1000-1200"),
                         getTagSet("Math", "Science")
                 ),
             new Person(
@@ -41,7 +41,7 @@ public class SampleDataUtil {
                         new Phone("93210283"),
                         new Email("charlotte@example.com"),
                         new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                        new TuitionTime("Wednesday 0930-1130"),
+                        new TuitionTime("Wednesday, 0930-1130"),
                         getTagSet("English")
                 ),
             new Person(
@@ -49,7 +49,7 @@ public class SampleDataUtil {
                         new Phone("91031282"),
                         new Email("lidavid@example.com"),
                         new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                        new TuitionTime("Thursday 1500-1700"),
+                        new TuitionTime("Thursday, 1500-1700"),
                         getTagSet("Chinese")
                 ),
             new Person(
@@ -57,7 +57,7 @@ public class SampleDataUtil {
                         new Phone("92492021"),
                         new Email("irfan@example.com"),
                         new Address("Blk 47 Tampines Street 20, #17-35"),
-                        new TuitionTime("Friday 0800-1000"),
+                        new TuitionTime("Friday, 0800-1000"),
                         getTagSet("Hindi")
                 ),
             new Person(
@@ -65,7 +65,7 @@ public class SampleDataUtil {
                         new Phone("92624417"),
                         new Email("royb@example.com"),
                         new Address("Blk 45 Aljunied Street 85, #11-31"),
-                        new TuitionTime("Saturday 1300-1500"),
+                        new TuitionTime("Saturday, 1300-1500"),
                         getTagSet("Tamil")
                 )
         };
