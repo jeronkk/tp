@@ -31,6 +31,13 @@ public class DeleteCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Executes the delete command, which deletes a person from the address book.
+     *
+     * @param model The model which the command should operate on.
+     * @return A {@code CommandResult} indicating the outcome of the delete operation.
+     * @throws CommandException If the provided index is out of bounds (i.e., not a valid person in the current list).
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
