@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.TuitionTime;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -108,6 +109,29 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String tuitionTime} into a {@code TuitionTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param tuitionTime The raw input string representing the tuition time.
+     * @return A {@code TuitionTime} object containing the parsed value.
+     * @throws ParseException if the given {@code tuitionTime} is invalid.
+     */
+    public static TuitionTime parseTuitionTime(String tuitionTime) throws ParseException {
+        requireNonNull(tuitionTime);
+        String trimmedTime = tuitionTime.trim();
+        if (!TuitionTime.isValidTuitionTime(trimmedTime)) {
+            throw new ParseException(TuitionTime.MESSAGE_CONSTRAINTS);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String[] time = trimmedTime.split(",");
+        String standardisedDay = DayMapping.map(time[0]);
+        String standardisedTime = sb.append(standardisedDay).append(',').append(time[1]).toString();
+
+        return new TuitionTime(standardisedTime);
     }
 
     /**

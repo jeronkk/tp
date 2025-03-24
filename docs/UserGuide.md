@@ -80,7 +80,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]…​`
 
 <box type="tip" seamless>
 
@@ -88,14 +88,20 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 tt/Monday 1000-1200`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 tt/Friday 1400-1600 t/criminal`
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all persons in the address book. Specify a subject or tuition time with keyword to 
+list only persons with matching subject or tuition time.
 
-Format: `list`
+Format: `list [keyword]`
+
+Examples:
+* `list` Lists all persons in the address book.
+* `list math` Lists all persons with keyword math in their tags (subjects).
+* `list tt/monday` Lists all persons with keyword monday in their tuition times
 
 ### Editing a person : `edit`
 
@@ -131,6 +137,16 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### Sorting : `sort`
+Sort the address book based on field specified.
+
+Format: `sort [by] field asc/desc`
+
+Examples:
+* `sort name asc` Sorts address book using ascending order of names.
+* `sort tuition desc` Sorts address book using descending order of tuition times.
+* `sort by email asc` Sorts address book using ascending order of email addresses. 
 
 ### Deleting a person : `delete`
 
@@ -197,10 +213,11 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 tt/Monday 1000-1200 t/friend t/colleague`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
+**Sort**   | `sort [by] field asc/desc`<br> e.g. `sort name asc`
+**List**   | `list [keyword]`
 **Help**   | `help`

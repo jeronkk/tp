@@ -8,6 +8,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.TuitionTime;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,11 +21,13 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_TUITION_TIME = "Monday, 1400-1600";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private TuitionTime tuitionTime;
     private Set<Tag> tags;
 
     /**
@@ -35,6 +38,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        tuitionTime = new TuitionTime(DEFAULT_TUITION_TIME);
         tags = new HashSet<>();
     }
 
@@ -46,6 +50,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        tuitionTime = personToCopy.getTuitionTime();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -58,7 +63,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and sets them to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -89,8 +94,18 @@ public class PersonBuilder {
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, address, tags);
+    /**
+     * Sets the {@code TuitionTime} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withTuitionTime(String tuitionTime) {
+        this.tuitionTime = new TuitionTime(tuitionTime);
+        return this;
     }
 
+    /**
+     * Builds and returns a {@code Person} object with the current attributes.
+     */
+    public Person build() {
+        return new Person(name, phone, email, address, tuitionTime, tags);
+    }
 }
