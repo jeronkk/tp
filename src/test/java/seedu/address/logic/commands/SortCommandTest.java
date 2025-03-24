@@ -69,6 +69,22 @@ public class SortCommandTest {
     }
 
     @Test
+    public void execute_addressFieldAscending_sortsCorrectly() throws Exception {
+        Person alice = new PersonBuilder().withAddress("Admiralty").build();
+        Person bob = new PersonBuilder().withAddress("Bishan").build();
+        Person charlie = new PersonBuilder().withAddress("Tampines").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(alice, bob, charlie);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("address", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(alice, bob, charlie);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+    @Test
     public void execute_phoneFieldAscending_sortsCorrectly() throws Exception {
         Person alice = new PersonBuilder().withName("Alice").withPhone("1111").build();
         Person bob = new PersonBuilder().withName("Bob").withPhone("2222").build();
