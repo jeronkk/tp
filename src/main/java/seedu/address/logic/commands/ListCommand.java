@@ -17,6 +17,10 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all students";
     public static final String EMPTY_LIST = "No student found.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all persons with keyword (case-insensitive) "
+            + "for field specified and displays them as a list with index numbers.\n"
+            + "Parameters: [field, keyword]\n"
+            + "Example: " + COMMAND_WORD + " t/Math";
 
     private final Predicate<Person> predicate;
     private final String resultMessage;

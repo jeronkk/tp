@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_TT_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_MISSING_KEYWORD;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -7,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.person.TagsContainKeywordPredicate;
+import seedu.address.model.person.TuitionTimeContainsKeywordPredicate;
 
 public class ListCommandParserTest {
 
@@ -21,7 +25,7 @@ public class ListCommandParserTest {
 
     @Test
     public void parse_validTagArg_returnsTagFilteredListCommand() {
-        String input = "math";
+        String input = " t/math";
         ListCommand expectedCommand = new ListCommand(
                 new TagsContainKeywordPredicate("math"),
                 "Listed all persons with subject ",
@@ -31,8 +35,38 @@ public class ListCommandParserTest {
     }
 
     @Test
+    public void parse_validTuitionTime_returnsTuitionTimeFilteredListCommand() {
+        String input = " tt/Monday";
+        ListCommand expectedCommand = new ListCommand(
+                new TuitionTimeContainsKeywordPredicate("Monday"),
+                "Listed all persons with tuition time on ",
+                "Monday"
+        );
+        assertParseSuccess(parser, input, expectedCommand);
+    }
+
+    @Test
     public void parse_invalidTuitionTimeArg_throwsParseException() {
         String input = " tt/Funday";
-        assertParseFailure(parser, input, INVALID_TT_FORMAT);
+        String expectedMessage = String.format(MESSAGE_INVALID_TT_FORMAT, ListCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, input, expectedMessage);
+    }
+
+    @Test
+    public void parse_missingFieldPrefix_throwsParseException() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, " math", expectedMessage);
+    }
+
+    @Test
+    public void parse_emptyTagField_throwsParseException() {
+        String expectedMessage = String.format(MESSAGE_MISSING_KEYWORD, ListCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, " t/ ", expectedMessage);
+    }
+
+    @Test
+    public void parse_emptyTuitionTimeField_throwsParseException() {
+        String expectedMessage = String.format(MESSAGE_MISSING_KEYWORD, ListCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, " tt/ ", expectedMessage);
     }
 }
