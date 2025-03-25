@@ -46,6 +46,7 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        assert model != null : "Model should not be null";
 
         Comparator<Person> comparator;
 
@@ -73,6 +74,8 @@ public class SortCommand extends Command {
         default:
             throw new CommandException(MESSAGE_INVALID_FIELD);
         }
+
+        assert comparator != null : "Comparator should have been set for sortField: " + sortField;
 
         if (!ascending) {
             comparator = comparator.reversed();

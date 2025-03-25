@@ -69,6 +69,22 @@ public class SortCommandTest {
     }
 
     @Test
+    public void execute_addressFieldAscending_sortsCorrectly() throws Exception {
+        Person alice = new PersonBuilder().withAddress("Admiralty").build();
+        Person bob = new PersonBuilder().withAddress("Bishan").build();
+        Person charlie = new PersonBuilder().withAddress("Tampines").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(alice, bob, charlie);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("address", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(alice, bob, charlie);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+    @Test
     public void execute_phoneFieldAscending_sortsCorrectly() throws Exception {
         Person alice = new PersonBuilder().withName("Alice").withPhone("1111").build();
         Person bob = new PersonBuilder().withName("Bob").withPhone("2222").build();
@@ -102,10 +118,10 @@ public class SortCommandTest {
 
     @Test
     public void execute_tuitionFieldAscending_sortsCorrectly() throws Exception {
-        Person monday = new PersonBuilder().withName("Monday").withTuitionTime("Monday 0900-1100").build();
-        Person friday = new PersonBuilder().withName("Friday").withTuitionTime("Friday 1200-1300").build();
-        Person saturday = new PersonBuilder().withName("Saturday").withTuitionTime("Saturday 1400-1500").build();
-        Person sunday = new PersonBuilder().withName("Sunday").withTuitionTime("Sunday 1400-1500").build();
+        Person monday = new PersonBuilder().withName("Monday").withTuitionTime("Monday, 0900-1100").build();
+        Person friday = new PersonBuilder().withName("Friday").withTuitionTime("Friday, 1200-1300").build();
+        Person saturday = new PersonBuilder().withName("Saturday").withTuitionTime("Saturday, 1200-1300").build();
+        Person sunday = new PersonBuilder().withName("Sunday").withTuitionTime("Sunday, 1400-1500").build();
 
         ObservableList<Person> list = FXCollections.observableArrayList(sunday, friday, monday, saturday);
         SimpleModelStub model = new SimpleModelStub(list);
