@@ -25,7 +25,7 @@ public class HelpWindowTest {
         if (!fxInitialized) {
             CountDownLatch latch = new CountDownLatch(1);
             try {
-                Platform.startup(latch::countDown);
+                Platform.startup(() -> {});
             } catch (IllegalStateException e) {
                 // Toolkit is already initialized; count down the latch and continue.
                 latch.countDown();

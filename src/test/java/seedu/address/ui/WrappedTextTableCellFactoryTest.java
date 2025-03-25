@@ -23,7 +23,7 @@ public class WrappedTextTableCellFactoryTest {
     public static void initJavaFx() throws InterruptedException {
         // Ensure JavaFX is initialized
         CountDownLatch latch = new CountDownLatch(1);
-        Platform.startup(latch::countDown);
+        Platform.startup(() -> {});
         latch.await(5, TimeUnit.SECONDS);
     }
 
