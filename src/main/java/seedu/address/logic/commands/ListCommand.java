@@ -48,7 +48,11 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        assert predicate != null : "Predicate should be initialized";
         model.updateFilteredPersonList(this.predicate);
+
+        assert model.getFilteredPersonList() != null : "Filtered list should not be null";
         if (model.getFilteredPersonList().isEmpty()) {
             return new CommandResult(EMPTY_LIST);
         } else {

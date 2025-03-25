@@ -9,7 +9,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.VBox?>
+<?import seedu.address.ui.WrappedTextTableCellFactory?>
+<fx:root resizable="false" title="Help" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -18,6 +23,30 @@
       <stylesheets>
         <URL value="@HelpWindow.css" />
       </stylesheets>
+
+      <VBox spacing="10" style="-fx-padding: 10;">
+        <TableView fx:id="commandsTable" prefHeight="400" prefWidth="700">
+          <columns>
+            <TableColumn fx:id="commandColumn" text="Command" prefWidth="250">
+              <cellFactory>
+                <WrappedTextTableCellFactory />
+              </cellFactory>
+            </TableColumn>
+            <TableColumn fx:id="formatColumn" text="Format" prefWidth="250">
+              <cellFactory>
+                <WrappedTextTableCellFactory />
+              </cellFactory>
+            </TableColumn>
+            <TableColumn fx:id="exampleColumn" text="Example" prefWidth="250">
+              <cellFactory>
+                <WrappedTextTableCellFactory />
+              </cellFactory>
+            </TableColumn>
+          </columns>
+          <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+          </columnResizePolicy>
+        </TableView>
 
       <HBox alignment="CENTER" fx:id="helpMessageContainer">
         <children>
@@ -39,6 +68,7 @@
           <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
         </padding>
       </HBox>
+     </VBox>
     </Scene>
   </scene>
 </fx:root>
