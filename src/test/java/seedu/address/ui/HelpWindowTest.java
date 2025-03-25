@@ -14,25 +14,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-
+import seedu.address.testutil.JavaFxInitializer;
 
 public class HelpWindowTest {
 
-    private static boolean fxInitialized = false;
-
     @BeforeAll
     public static void initJavaFx() throws InterruptedException {
-        if (!fxInitialized) {
-            CountDownLatch latch = new CountDownLatch(1);
-            try {
-                Platform.startup(() -> {});
-            } catch (IllegalStateException e) {
-                // Toolkit is already initialized; count down the latch and continue.
-                latch.countDown();
-            }
-            latch.await(5, TimeUnit.SECONDS);
-            fxInitialized = true;
-        }
+        JavaFxInitializer.init();
     }
 
     @Test
@@ -41,9 +29,9 @@ public class HelpWindowTest {
         Platform.runLater(() -> {
             try {
                 HelpWindow helpWindow = new HelpWindow(new Stage());
-                helpWindow.show(); // Ensure the scene is built
+                helpWindow.show();
 
-                // Lookup the help message label using its fx:id
+                // Lookup the helpMessage Label by fx:id.
                 Node node = helpWindow.getRoot().getScene().lookup("#helpMessage");
                 assertNotNull(node, "The help message label should be present.");
                 Label helpLabel = (Label) node;
@@ -56,6 +44,7 @@ public class HelpWindowTest {
         });
         latch.await(5, TimeUnit.SECONDS);
     }
+
 
     @Test
     public void testCommandsTableIsPopulated() throws InterruptedException {

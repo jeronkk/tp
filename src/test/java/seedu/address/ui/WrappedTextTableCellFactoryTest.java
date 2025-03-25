@@ -16,15 +16,13 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import seedu.address.testutil.JavaFxInitializer;
 
 public class WrappedTextTableCellFactoryTest {
 
     @BeforeAll
     public static void initJavaFx() throws InterruptedException {
-        // Ensure JavaFX is initialized
-        CountDownLatch latch = new CountDownLatch(1);
-        Platform.startup(() -> {});
-        latch.await(5, TimeUnit.SECONDS);
+        JavaFxInitializer.init();
     }
 
     @Test
@@ -36,12 +34,13 @@ public class WrappedTextTableCellFactoryTest {
                 TableColumn<Object, String> dummyColumn = new TableColumn<>("Dummy Column");
                 TableCell<Object, String> cell = factory.call(dummyColumn);
 
-                // The cell's graphic should be a Text node
+                // Verify the cell's graphic is a Text node.
                 assertTrue(cell.getGraphic() instanceof Text, "Expected graphic to be a Text node.");
                 Text text = (Text) cell.getGraphic();
-                // Initially, the text should be null
+
+                // Initially, the text should be null.
                 assertNull(text.getText(), "Expected initial text to be null.");
-                // And the fill color should be white
+                // The text fill should be white.
                 assertEquals(Color.WHITE, text.getFill(), "Expected text fill color to be white.");
             } finally {
                 latch.countDown();
