@@ -87,7 +87,7 @@ public class HelpWindow extends UiPart<Stage> {
      *           {@code formatColumn}, {@code exampleColumn}) and the table view
      *           ({@code commandsTable}) must be properly initialized before calling this method.
      */
-    private void initializeTable() {
+    public void initializeTable() {
         // 1. First set up the cell value factories
         commandColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().command()));
         formatColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().format()));
