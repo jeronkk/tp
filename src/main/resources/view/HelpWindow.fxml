@@ -24,7 +24,10 @@
         <URL value="@HelpWindow.css" />
       </stylesheets>
 
-      <VBox spacing="10" style="-fx-padding: 10;">
+      <VBox spacing="10" alignment="CENTER">
+        <padding>
+          <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
         <TableView fx:id="commandsTable" prefHeight="400" prefWidth="700">
           <columns>
             <TableColumn fx:id="commandColumn" text="Command" prefWidth="250">
