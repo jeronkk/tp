@@ -14,6 +14,10 @@ box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
+box Utility UTIL_COLOR_T1
+participant ":TuitionTimeUtil" as TuitionTimeUtil UTIL_COLOR
+end box
+
 [-> LogicManager : execute("sort name asc")
 activate LogicManager
 
@@ -21,25 +25,20 @@ LogicManager -> AddressBookParser : parseCommand("sort name asc")
 activate AddressBookParser
 
 create SortCommandParser
-AddressBookParser -> SortCommandParser
+AddressBookParser -> SortCommandParser : new()
 activate SortCommandParser
 
-SortCommandParser --> AddressBookParser
-deactivate SortCommandParser
-
-AddressBookParser -> SortCommandParser : parse("name asc")
-activate SortCommandParser
+SortCommandParser -> SortCommandParser : parse("name asc")
 
 create SortCommand
 SortCommandParser -> SortCommand : new(sortField, ascending)
 activate SortCommand
 
-SortCommand --> SortCommandParser :
+SortCommand --> SortCommandParser
 deactivate SortCommand
 
 SortCommandParser --> AddressBookParser : s
 deactivate SortCommandParser
-SortCommandParser -[hidden]-> AddressBookParser
 destroy SortCommandParser
 
 AddressBookParser --> LogicManager : s
@@ -50,6 +49,13 @@ activate SortCommand
 
 SortCommand -> Model : sortFilteredPersonList(comparator)
 activate Model
+
+' Optional: Sorting by tuition time
+Model -> TuitionTimeUtil : getSortKey("Tuesday, 1800-2000")
+activate TuitionTimeUtil
+TuitionTimeUtil --> Model : "2_1800"
+deactivate TuitionTimeUtil
+
 Model --> SortCommand
 deactivate Model
 
@@ -59,10 +65,9 @@ Model --> SortCommand
 deactivate Model
 
 create CommandResult
-SortCommand -> CommandResult
+SortCommand -> CommandResult : new(message)
 activate CommandResult
-
-CommandResult --> SortCommand
+CommandResult --> SortCommand : r
 deactivate CommandResult
 
 SortCommand --> LogicManager : r
