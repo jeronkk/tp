@@ -4,7 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
-package UI <<Rectangle>>{
+package UI <<Rectangle>> {
 Class "<<interface>>\nUi" as Ui
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
@@ -25,12 +25,18 @@ package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
 
+package Util <<Rectangle>> {
+Class CommandHistoryManager
+Class CommandConfig
+Class CommandUsageInfo
+}
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
-MainWindow *-down->  "1" CommandBox
+MainWindow *-down-> "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" PersonListPanel
 MainWindow *-down-> "1" StatusBarFooter
@@ -47,14 +53,18 @@ PersonCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
 
+CommandBox ..> CommandHistoryManager : uses
+HelpWindow ..> CommandConfig : reads from
+HelpWindow ..> CommandUsageInfo : reads from
+
 PersonCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
+' Hidden layout aids
 PersonListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
-
 MainWindow -[hidden]-|> UiPart
 @enduml
