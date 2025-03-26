@@ -20,8 +20,10 @@ public class JavaFxInitializer {
      * </p>
      */
     public static synchronized void init() {
-
-        // Instantiating a JFXPanel will initialize the JavaFX toolkit.
-        new JFXPanel();
+        try {
+            new JFXPanel();
+        } catch (IllegalStateException | UnsupportedOperationException e) {
+            // Toolkit is already initialized or not supported in the current environment.
+        }
     }
 }

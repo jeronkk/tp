@@ -10,71 +10,67 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.input.Clipboard;
 import javafx.stage.Stage;
+import seedu.address.testutil.JavaFxInitializer;
 
 public class HelpWindowTest {
 
     @BeforeAll
-    public static void setupJavaFx() throws InterruptedException {
-        // Initialize JavaFX environment
-        System.out.println("Initializing JavaFX...");
-        CountDownLatch latch = new CountDownLatch(1);
-        Platform.startup(() -> {
-            // This will run on JavaFX Application Thread
-            new JFXPanel(); // Initializes the toolkit
-            latch.countDown();
-        });
-        latch.await(5, TimeUnit.SECONDS);
-        Platform.setImplicitExit(false);
+    public static void initJavaFx() throws InterruptedException {
+        // Initialize JavaFX using our helper that uses JFXPanel or TestFX.
+        JavaFxInitializer.init();
     }
 
     @Test
-    public void testHelpMessageIsDisplayed() throws InterruptedException {
+    public void testHelpWindowInitialization() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             try {
+                // Create and show the HelpWindow
                 HelpWindow helpWindow = new HelpWindow(new Stage());
                 helpWindow.show();
 
-                // Lookup the helpMessage Label by fx:id.
-                Node node = helpWindow.getRoot().getScene().lookup("#helpMessage");
-                assertNotNull(node, "The help message label should be present.");
-                Label helpLabel = (Label) node;
+                // Lookup the help message Label by its fx:id ("helpMessage")
+                Node labelNode = helpWindow.getRoot().getScene().lookup("#helpMessage");
+                assertNotNull(labelNode, "The help message label should be present in the scene.");
+                Label helpLabel = (Label) labelNode;
                 assertEquals(HelpWindow.HELP_MESSAGE, helpLabel.getText(),
-                        "Help message should match the expected text.");
+                        "The help message should match the expected text.");
+
+                // Lookup the commands table by its fx:id ("commandsTable")
+                Node tableNode = helpWindow.getRoot().getScene().lookup("#commandsTable");
+                assertNotNull(tableNode, "The commands table should be present in the scene.");
+                TableView<?> commandsTable = (TableView<?>) tableNode;
+                // Check that the table is populated with the expected number of commands.
+                int expectedSize = CommandConfig.getAllCommands().size();
+                assertEquals(expectedSize, commandsTable.getItems().size(),
+                        "The commands table should contain " + expectedSize + " entries.");
+
+                // Hide the window after testing.
                 helpWindow.hide();
             } finally {
                 latch.countDown();
             }
         });
+        // Wait for the UI thread to complete the test.
         latch.await(5, TimeUnit.SECONDS);
     }
 
-
     @Test
-    public void testCommandsTableIsPopulated() throws InterruptedException {
+    public void testCopyUrlCopiesCorrectUrl() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             try {
                 HelpWindow helpWindow = new HelpWindow(new Stage());
-                // Ensure the table is initialized (initializeTable() is public in this example)
-                helpWindow.initializeTable();
-                helpWindow.show(); // Ensure the scene is built
-
-                // Lookup the commands table using its fx:id
-                Node node = helpWindow.getRoot().getScene().lookup("#commandsTable");
-                assertNotNull(node, "The commands table should be present in the scene.");
-                TableView<?> table = (TableView<?>) node;
-
-                // Get the expected number of commands from the CommandConfig.
-                int expectedSize = CommandConfig.getAllCommands().size();
-                assertEquals(expectedSize, table.getItems().size(),
-                        "The commands table should contain the expected number of command entries.");
-                helpWindow.hide();
+                // Invoke the copyUrl method.
+                helpWindow.copyUrl();
+                String clipboardContent = Clipboard.getSystemClipboard().getString();
+                assertEquals(HelpWindow.USERGUIDE_URL, clipboardContent,
+                        "The system clipboard should contain the correct user guide URL.");
             } finally {
                 latch.countDown();
             }
