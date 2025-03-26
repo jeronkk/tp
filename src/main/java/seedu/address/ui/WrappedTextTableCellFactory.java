@@ -51,7 +51,7 @@ public class WrappedTextTableCellFactory<S, T> implements Callback<TableColumn<S
              * @param empty true if the cell represents a null item, false otherwise
              */
             @Override
-            protected void updateItem(T item, boolean empty) {
+            public void updateItem(T item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     text.setText(null);
