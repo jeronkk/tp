@@ -10,17 +10,18 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import seedu.address.testutil.JavaFxInitializer;
 
 public class HelpWindowTest {
 
     @BeforeAll
     public static void initJavaFx() throws InterruptedException {
-        JavaFxInitializer.init();
+        new JFXPanel(); // Initializes JavaFX
+        Platform.setImplicitExit(false);
     }
 
     @Test
