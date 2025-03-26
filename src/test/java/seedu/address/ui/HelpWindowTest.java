@@ -19,8 +19,16 @@ import javafx.stage.Stage;
 public class HelpWindowTest {
 
     @BeforeAll
-    public static void initJavaFx() throws InterruptedException {
-        new JFXPanel(); // Initializes JavaFX
+    public static void setupJavaFx() throws InterruptedException {
+        // Initialize JavaFX environment
+        System.out.println("Initializing JavaFX...");
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.startup(() -> {
+            // This will run on JavaFX Application Thread
+            new JFXPanel(); // Initializes the toolkit
+            latch.countDown();
+        });
+        latch.await(5, TimeUnit.SECONDS);
         Platform.setImplicitExit(false);
     }
 
