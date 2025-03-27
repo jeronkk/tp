@@ -212,15 +212,18 @@ public class SortCommandTest {
     }
 
     @Test
-    public void sortTags_expressionInTest_lineByLineCoverage() {
-        Person p = new PersonBuilder().withTags("Science", "Math", "English").build();
-        String tagString = p.getTags().stream()
-                .map(tag -> tag.tagName.toLowerCase())
-                .sorted()
-                .reduce((a, b) -> a + "," + b)
-                .orElse(""); // covers .orElse("")
+    public void execute_tagsSameCountDifferentOrder_triggersTagStringComparator() throws Exception {
+        Person alphaFirst = new PersonBuilder().withName("A").withTags("Alpha", "Beta").build();
+        Person betaFirst = new PersonBuilder().withName("B").withTags("Charlie", "Alpha").build();
 
-        assertEquals("english,math,science", tagString);
+        ObservableList<Person> list = FXCollections.observableArrayList(betaFirst, alphaFirst);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("tags", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(alphaFirst, betaFirst);
+        assertEquals(expected, model.getFilteredPersonList());
     }
 
 
