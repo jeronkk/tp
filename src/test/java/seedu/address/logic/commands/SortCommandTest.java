@@ -166,6 +166,21 @@ public class SortCommandTest {
         assertEquals(expected, model.getFilteredPersonList());
     }
 
+    @Test
+    public void execute_personWithNoTags_sortsCorrectly() throws Exception {
+        Person noTags = new PersonBuilder().withName("Tagless").withTags().build();
+        Person oneTag = new PersonBuilder().withName("Tagged").withTags("Math").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(noTags, oneTag);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("tags", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(noTags, oneTag);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
     private static class SimpleModelStub implements Model {
         private final ObservableList<Person> list;
 
