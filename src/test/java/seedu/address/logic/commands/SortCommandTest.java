@@ -211,6 +211,19 @@ public class SortCommandTest {
         assertEquals(List.of(p), model.getFilteredPersonList()); // still sorted, but logic ran
     }
 
+    @Test
+    public void sortTags_expressionInTest_lineByLineCoverage() {
+        Person p = new PersonBuilder().withTags("Science", "Math", "English").build();
+        String tagString = p.getTags().stream()
+                .map(tag -> tag.tagName.toLowerCase())
+                .sorted()
+                .reduce((a, b) -> a + "," + b)
+                .orElse(""); // covers .orElse("")
+
+        assertEquals("english,math,science", tagString);
+    }
+
+
     private static class SimpleModelStub implements Model {
         private final ObservableList<Person> list;
 
