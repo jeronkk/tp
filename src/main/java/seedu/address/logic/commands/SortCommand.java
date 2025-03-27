@@ -67,10 +67,12 @@ public class SortCommand extends Command {
         case "tuitionTime":
             comparator = Comparator.comparing(p -> TuitionTimeUtil.getSortKey(p.getTuitionTime().value));
             break;
-        /*case "tag":
+        case "tag":
         case "tags":
-            comparator = Comparator.comparing(p -> p.getTags().toLowerCase());
-            break;*/
+            comparator = Comparator
+                    .<Person>comparingInt(p -> p.getTags().size())
+                            .thenComparing(p -> getSortedTagsString(p));
+            break;
         default:
             throw new CommandException(MESSAGE_INVALID_FIELD);
         }
@@ -86,6 +88,14 @@ public class SortCommand extends Command {
 
         String direction = ascending ? "ascending" : "descending";
         return new CommandResult(String.format(MESSAGE_SUCCESS, sortField, direction));
+    }
+
+    private static String getSortedTagsString(Person p) {
+        return p.getTags().stream()
+                .map(tag -> tag.tagName.toLowerCase())
+                .sorted()
+                .reduce((a, b) -> a + "," + b)
+                .orElse("");
     }
 
     /**

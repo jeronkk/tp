@@ -133,6 +133,38 @@ public class SortCommandTest {
         assertEquals(expected, model.getFilteredPersonList());
     }
 
+    @Test
+    public void execute_tagsFieldAscending_sortsCorrectly() throws Exception {
+        Person oneTag = new PersonBuilder().withName("One").withTags("Math").build();
+        Person twoTags = new PersonBuilder().withName("Two").withTags("Science", "Math").build();
+        Person threeTags = new PersonBuilder().withName("Three").withTags("Math", "English", "Science").build();
+
+        // initial order: One, Two, Three
+        ObservableList<Person> list = FXCollections.observableArrayList(oneTag, twoTags, threeTags);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("tags", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(oneTag, twoTags, threeTags);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_tagsFieldDescending_sortsCorrectly() throws Exception {
+        Person oneTag = new PersonBuilder().withName("One").withTags("Math").build();
+        Person twoTags = new PersonBuilder().withName("Two").withTags("Science", "Math").build();
+        Person threeTags = new PersonBuilder().withName("Three").withTags("Math", "English", "Science").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(threeTags, twoTags, oneTag);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("tags", false);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(threeTags, twoTags, oneTag);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
 
     private static class SimpleModelStub implements Model {
         private final ObservableList<Person> list;
