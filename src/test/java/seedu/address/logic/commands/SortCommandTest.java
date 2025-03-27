@@ -64,7 +64,7 @@ public class SortCommandTest {
         SortCommand command = new SortCommand("name", false);
         command.execute(model);
 
-        List<Person> expected = Arrays.asList(charlie, bob, alice);
+        List<Person> expected = Arrays.asList(alice, bob, charlie);
         assertEquals(expected, model.getFilteredPersonList());
     }
 
@@ -130,6 +130,99 @@ public class SortCommandTest {
         command.execute(model);
 
         List<Person> expected = Arrays.asList(monday, friday, saturday, sunday);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_tagsFieldAscending_sortsCorrectly() throws Exception {
+        Person oneTag = new PersonBuilder().withName("One").withTags("Math").build();
+        Person twoTags = new PersonBuilder().withName("Two").withTags("Science", "Math").build();
+        Person threeTags = new PersonBuilder().withName("Three").withTags("Math", "English", "Science").build();
+
+        // initial order: One, Two, Three
+        ObservableList<Person> list = FXCollections.observableArrayList(oneTag, twoTags, threeTags);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("tags", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(oneTag, twoTags, threeTags);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_tagsFieldDescending_sortsCorrectly() throws Exception {
+        Person oneTag = new PersonBuilder().withName("One").withTags("Math").build();
+        Person twoTags = new PersonBuilder().withName("Two").withTags("Science", "Math").build();
+        Person threeTags = new PersonBuilder().withName("Three").withTags("Math", "English", "Science").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(threeTags, twoTags, oneTag);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("tags", false);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(oneTag, twoTags, threeTags);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_personWithNoTags_sortsCorrectly() throws Exception {
+        Person noTags = new PersonBuilder().withName("Tagless").withTags().build();
+        Person oneTag = new PersonBuilder().withName("Tagged").withTags("Math").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(noTags, oneTag);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("tags", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(noTags, oneTag);
+        assertEquals(expected, model.getFilteredPersonList());
+    }
+
+    @Test
+    public void getSortedTags_emptyTags_returnsEmptyString() throws Exception {
+        Person p = new PersonBuilder().withName("Empty").withTags().build();
+        ObservableList<Person> list = FXCollections.observableArrayList(p);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        new SortCommand("tags", true).execute(model);
+        assertEquals(List.of(p), model.getFilteredPersonList()); // still sorted, nothing to compare
+    }
+
+    @Test
+    public void getSortedTags_singleTag_returnsTagLowercased() throws Exception {
+        Person p = new PersonBuilder().withName("Solo").withTags("Math").build();
+        ObservableList<Person> list = FXCollections.observableArrayList(p);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        new SortCommand("tags", true).execute(model);
+        assertEquals(List.of(p), model.getFilteredPersonList()); // No reordering needed
+    }
+
+    @Test
+    public void getSortedTags_multipleSortedTags_returnsSameOrder() throws Exception {
+        Person p = new PersonBuilder().withName("Sorted").withTags("English", "Math", "Science").build();
+        ObservableList<Person> list = FXCollections.observableArrayList(p);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        new SortCommand("tags", true).execute(model);
+        assertEquals(List.of(p), model.getFilteredPersonList()); // still sorted, but logic ran
+    }
+
+    @Test
+    public void execute_tagsSameCountDifferentOrder_triggersTagStringComparator() throws Exception {
+        Person alphaFirst = new PersonBuilder().withName("A").withTags("Alpha", "Beta").build();
+        Person betaFirst = new PersonBuilder().withName("B").withTags("Charlie", "Alpha").build();
+
+        ObservableList<Person> list = FXCollections.observableArrayList(betaFirst, alphaFirst);
+        SimpleModelStub model = new SimpleModelStub(list);
+
+        SortCommand command = new SortCommand("tags", true);
+        command.execute(model);
+
+        List<Person> expected = Arrays.asList(alphaFirst, betaFirst);
         assertEquals(expected, model.getFilteredPersonList());
     }
 

@@ -13,16 +13,16 @@ public class TuitionTimeUtil {
      * @return A sortable key for comparing tuition times.
      */
     public static String getSortKey(String value) {
-        String[] parts = value.trim().split("\\s+");
+        String[] parts = value.trim().split(",");
         if (parts.length != 2) {
             return value.toLowerCase(); // fallback
         }
 
-        String day = parts[0].toLowerCase();
-        String timeRange = parts[1];
+        String day = parts[0].trim().toLowerCase();
+        String timeRange = parts[1].trim();
 
         // Get start time (before dash)
-        String startTime = timeRange.split("-")[0];
+        String startTime = timeRange.split("-")[0].trim();
 
         int dayOrder = switch (day) {
         case "monday" -> 1;

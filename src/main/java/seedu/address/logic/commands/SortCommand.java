@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -20,6 +21,8 @@ public class SortCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Sorted all persons by %s (%s).";
     public static final String MESSAGE_INVALID_FIELD = "Invalid sort field. Valid fields: name. phone, "
                                     + "email, address, tuition";
+
+    private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
 
     private final String sortField;
     private final boolean ascending;
@@ -48,31 +51,47 @@ public class SortCommand extends Command {
         requireNonNull(model);
         assert model != null : "Model should not be null";
 
+        logger.info("Executing SortCommand");
+        logger.info("Sort field: " + sortField + ", Order: " + (ascending ? "ascending" : "descending"));
+
         Comparator<Person> comparator;
 
         switch (sortField.trim().toLowerCase()) {
         case "name":
+            logger.fine("Sorting by name");
             comparator = Comparator.comparing(p -> p.getName().fullName.toLowerCase());
             break;
         case "phone":
+            logger.fine("Sorting by phone");
             comparator = Comparator.comparing(p -> p.getPhone().value);
             break;
         case "email":
+            logger.fine("Sorting by email");
             comparator = Comparator.comparing(p -> p.getEmail().value.toLowerCase());
             break;
         case "address":
+            logger.fine("Sorting by address");
             comparator = Comparator.comparing(p -> p.getAddress().value.toLowerCase());
             break;
         case "tuition":
         case "tuitionTime":
+            logger.fine("Sorting by tuition time");
             comparator = Comparator.comparing(p -> TuitionTimeUtil.getSortKey(p.getTuitionTime().value));
             break;
-        /*case "tag":
+        case "tag":
         case "tags":
-            comparator = Comparator.comparing(p -> p.getTags().toLowerCase());
-            break;*/
+            logger.fine("Sorting by tags");
+            comparator = Comparator
+                    .<Person>comparingInt(p -> p.getTags().size())
+                            .thenComparing(p -> getSortedTagsString(p));
+            break;
         default:
             throw new CommandException(MESSAGE_INVALID_FIELD);
+        }
+
+        if (!ascending) {
+            logger.fine("Reversing comparator for descending order");
+            comparator = comparator.reversed();
         }
 
         assert comparator != null : "Comparator should have been set for sortField: " + sortField;
@@ -83,9 +102,18 @@ public class SortCommand extends Command {
 
         model.sortFilteredPersonList(comparator);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        logger.info("Sort completed successfully");
 
         String direction = ascending ? "ascending" : "descending";
         return new CommandResult(String.format(MESSAGE_SUCCESS, sortField, direction));
+    }
+
+    private static String getSortedTagsString(Person p) {
+        return p.getTags().stream()
+                .map(tag -> tag.tagName.toLowerCase())
+                .sorted()
+                .reduce((a, b) -> a + "," + b)
+                .orElse("");
     }
 
     /**
