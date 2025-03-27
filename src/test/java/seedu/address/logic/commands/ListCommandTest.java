@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -60,5 +61,28 @@ public class ListCommandTest {
 
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, "No student found.", expectedModel);
+    }
+
+    @Test
+    void assertionFailsWhenPredicateIsNull() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        ListCommand badCommand = new ListCommand(null, ListCommand.MESSAGE_SUCCESS, "");
+        assertThrows(AssertionError.class, () -> badCommand.execute(model),
+                "Expected AssertionError when predicate is null");
+    }
+
+    @Test
+    void assertionFailsWhenFilteredListIsNull() {
+        // Create a ModelManager but override getFilteredPersonList() to return null
+        Model stubModel = new ModelManager(getTypicalAddressBook(), new UserPrefs()) {
+            @Override
+            public javafx.collections.ObservableList<Person> getFilteredPersonList() {
+                return null;
+            }
+        };
+
+        ListCommand command = new ListCommand();
+        assertThrows(AssertionError.class, () -> command.execute(stubModel),
+                "Expected AssertionError when filtered list is null");
     }
 }
