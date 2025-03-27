@@ -70,7 +70,7 @@ TutorProMax is a **desktop app for managing contacts, optimized for use via a  L
     * `list` without any command behind will be treated as the basic list command where all contacts will be listed.
     * `list t/` will list all students with the particular tag (subject).
     * `list tt/` will list all students with tuition on a particular day.
-  
+
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
