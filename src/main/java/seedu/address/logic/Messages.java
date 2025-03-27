@@ -18,6 +18,9 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_MISSING_KEYWORD = "Please enter field and keyword! \n%1$s";
+    public static final String MESSAGE_INVALID_TT_FORMAT =
+            "Invalid day entered. Please use a valid day like 'monday' or 'mon' (case-insensitive). \n%1$s";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

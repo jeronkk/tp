@@ -15,8 +15,8 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-
     private final CommandExecutor commandExecutor;
+    private final CommandHistoryManager historyManager = new CommandHistoryManager();
 
     @FXML
     private TextField commandTextField;
@@ -29,6 +29,28 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+            case UP:
+                String previous = historyManager.getPrevious(commandTextField.getText());
+                if (previous != null) {
+                    commandTextField.setText(previous);
+                    commandTextField.positionCaret(previous.length());
+                }
+                event.consume();
+                break;
+            case DOWN:
+                String next = historyManager.getNext();
+                if (next != null) {
+                    commandTextField.setText(next);
+                    commandTextField.positionCaret(next.length());
+                }
+                event.consume();
+                break;
+            default:
+                break;
+            }
+        });
     }
 
     /**
@@ -43,6 +65,7 @@ public class CommandBox extends UiPart<Region> {
 
         try {
             commandExecutor.execute(commandText);
+            historyManager.add(commandText);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();

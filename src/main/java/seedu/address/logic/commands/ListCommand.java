@@ -17,6 +17,10 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all students";
     public static final String EMPTY_LIST = "No student found.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all persons with keyword (case-insensitive) "
+            + "for field specified and displays them as a list with index numbers.\n"
+            + "Parameters: [field, keyword]\n"
+            + "Example: " + COMMAND_WORD + " t/Math";
 
     private final Predicate<Person> predicate;
     private final String resultMessage;
@@ -48,7 +52,11 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        assert predicate != null : "Predicate should be initialized";
         model.updateFilteredPersonList(this.predicate);
+
+        assert model.getFilteredPersonList() != null : "Filtered list should not be null";
         if (model.getFilteredPersonList().isEmpty()) {
             return new CommandResult(EMPTY_LIST);
         } else {
