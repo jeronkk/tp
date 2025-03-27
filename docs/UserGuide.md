@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# TutorProMax
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+TutorProMax is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -31,13 +31,15 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/Math t/Science tt/Friday, 1000-1200` : Adds a contact named `John Doe` to TutorProMax.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
    * `exit` : Exits the app.
+
+   * `help` : Check for all available commands and their format.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -53,10 +55,10 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/Math` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/Math`, `t/Science t/English` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -64,12 +66,18 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* However, there are 2 extensions from the `list` command.
+    * `list` without any command behind will be treated as the basic list command where all contacts will be listed.
+    * `list t/` will list all students with the particular tag (subject).
+    * `list tt/` will list all students with tuition on a particular day.
+  
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a list of commands available.
+In addition, it shows a message explaining how to access the detailed help page.
 
 ![help message](images/helpMessage.png)
 
@@ -100,7 +108,7 @@ Format: `list [keyword]`
 
 Examples:
 * `list` Lists all persons in the address book.
-* `list math` Lists all persons with keyword math in their tags (subjects).
+* `list t/math` Lists all persons with keyword math in their tags (subjects).
 * `list tt/monday` Lists all persons with keyword monday in their tuition times
 
 ### Editing a person : `edit`
@@ -219,5 +227,5 @@ Action     | Format, Examples
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Sort**   | `sort [by] field asc/desc`<br> e.g. `sort name asc`
-**List**   | `list [keyword]`
+**List**   | `list [keyword]` <br> e.g. `list` <br> e.g. `list t/Math` <br> e.g. `list tt/Monday or list tt/mon`
 **Help**   | `help`

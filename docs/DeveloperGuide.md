@@ -295,7 +295,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user     | view all students' contact details | easily access students’ information and retrieve their contact details efficiently |
 | `* * *`  | user     | find a student by his/her name     | locate details of students without having to go through the entire list            |
 | `* *`    | user     | edit a contact details             | update new information without having to go through the process of delete and add  |
-| `* *`    | user     | filter lessons by date             | view all lessons scheduled on a particular day                                     |
+| `* *`    | user     | list lessons by date               | view all lessons scheduled on a particular day                                     |
+| `* *`    | user     | list students by subject                       | view all students with a filtered subject                                         |
+| `* *`    | user     | sort students according to a field I specified | view all student a in particular order for to find them more easily               |
 
 *{More to be added}*
 
