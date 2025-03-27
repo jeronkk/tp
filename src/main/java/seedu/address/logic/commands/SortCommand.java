@@ -20,7 +20,7 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Sorted all persons by %s (%s).";
     public static final String MESSAGE_INVALID_FIELD = "Invalid sort field. Valid fields: name. phone, "
-                                    + "email, address, tuition";
+                                    + "email, address, tuition, tag";
 
     private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
 
