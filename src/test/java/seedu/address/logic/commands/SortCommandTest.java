@@ -64,7 +64,7 @@ public class SortCommandTest {
         SortCommand command = new SortCommand("name", false);
         command.execute(model);
 
-        List<Person> expected = Arrays.asList(charlie, bob, alice);
+        List<Person> expected = Arrays.asList(alice, bob, charlie);
         assertEquals(expected, model.getFilteredPersonList());
     }
 
@@ -162,7 +162,7 @@ public class SortCommandTest {
         SortCommand command = new SortCommand("tags", false);
         command.execute(model);
 
-        List<Person> expected = Arrays.asList(threeTags, twoTags, oneTag);
+        List<Person> expected = Arrays.asList(oneTag, twoTags, threeTags);
         assertEquals(expected, model.getFilteredPersonList());
     }
 
