@@ -61,4 +61,13 @@ public class ListCommandTest {
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, "No student found.", expectedModel);
     }
+
+    @Test
+    public void execute_validPredicate_triggersAssertions() throws Exception {
+        Predicate<Person> predicate = person -> true; // Matches all
+        ListCommand command = new ListCommand(predicate, "Showing everyone", "");
+
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, "Showing everyone", expectedModel);
+    }
 }
