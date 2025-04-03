@@ -9,71 +9,88 @@ import java.util.List;
  * Also preserves in-progress user input when navigating history.
  */
 public class CommandHistoryManager {
-    /** Stores the full list of commands entered by the user. */
-    private final List<String> history = new ArrayList<>();
 
+    private final List<String> history = new ArrayList<>();
     /**
-     * The current index in the history list.
-     * This points to the next command to display when navigating.
+     * index points to the \"current\" slot:
+     *  - 0..(history.size()-1): points to actual history entries
+     *  - history.size(): the \"blank\" slot for new input
      */
     private int index = 0;
 
     /**
-     * Stores the temporary input that the user was typing before navigating
-     * the history. This is restored when the user navigates back down.
+     * The partial input the user was typing before they first pressed UP.
+     * Restored if the user navigates back DOWN to the blank slot.
      */
     private String tempInput = null;
 
     /**
-     * Adds a command to the history and resets the index and temporary input.
-     *
-     * @param command the user-entered command to store
+     * Adds a new executed command to the history, resetting index to the blank slot.
+     * Also clears any previously stored temp input.
+     * @param command the command to add
      */
     public void add(String command) {
         history.add(command);
+        // Move index to blank slot (just past the new last entry)
         index = history.size();
         tempInput = null;
     }
 
     /**
-     * Returns the previous command in history, moving the index backward.
-     * On first call, it preserves the current user input so it can be restored later.
+     * Moves to the previous command (pressing UP).
+     * If currently in the blank slot, stores the user's in-progress input (if not stored yet).
      *
      * @param currentInput the current text in the command box before pressing UP
-     * @return the previous command if available; null if already at the top
+     * @return the previous command to display, or null if history is empty
      */
     public String getPrevious(String currentInput) {
-        if (tempInput == null) {
+        if (history.isEmpty()) {
+            return null; // no history at all
+        }
+
+        // If at blank slot, store partial input for later restoration
+        if (index == history.size() && tempInput == null) {
             tempInput = currentInput;
         }
+
+        // Move index up unless at the very first command
         if (index > 0) {
             index--;
         }
-        if (history.isEmpty()) {
-            return null;
-        }
+
+        // Return the command at the new index
         return history.get(index);
     }
 
     /**
-     * Returns the next command in history, moving the index forward.
-     * If at the end of the history, returns the preserved input or empty string.
+     * Moves to the next command (pressing DOWN).
+     * If we reach the blank slot, restores tempInput if any.
      *
-     * @return the next command or original input; empty string if no input
+     * @return the next command or the restored in-progress input if at blank slot
      */
     public String getNext() {
-        // Don't do anything if user hasn't pressed UP before
-        if (tempInput == null && index == history.size()) {
-            return null; // signal that nothing should happen
+        if (history.isEmpty()) {
+            return null;
         }
 
-        if (index < history.size() - 1) {
-            index++;
-            return history.get(index);
-        } else if (index == history.size() - 1) {
-            index++;
+        // If we're already at the blank slot, do nothing
+        if (index == history.size()) {
+            // User is already at blank slot: no change
+            // The test expects us to remain with the \"tempInput\" if any,
+            // but we typically return null to signal \"no change\".
             return tempInput != null ? tempInput : "";
         }
-        return tempInput != null ? tempInput : "";
+
+        // Move index down
+        index++;
+
+        // If we have returned to the blank slot
+        if (index == history.size()) {
+            // Restore temp input if present
+            return tempInput != null ? tempInput : "";
+        }
+
+        // Otherwise, we are at a real history entry
+        return history.get(index);
     }
 }

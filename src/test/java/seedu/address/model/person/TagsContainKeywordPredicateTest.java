@@ -61,7 +61,7 @@ public class TagsContainKeywordPredicateTest {
 
         // Keyword match name and address, but does not match name
         predicate = new TagsContainKeywordPredicate("Math");
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice Main").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice Main").withPhone("91234567")
                 .withAddress("main").withTags("chemistry", "biology").build()));
     }
 

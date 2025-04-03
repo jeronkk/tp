@@ -34,7 +34,7 @@
     },
     {
       "name": "Elle Meyer",
-      "phone": "9482224",
+      "phone": "+6591234567",
       "email": "werner@example.com",
       "address": "michegan ave",
       "tuitionTime": "Friday, 0800-1000",
@@ -42,7 +42,7 @@
     },
     {
       "name": "Fiona Kunz",
-      "phone": "9482427",
+      "phone": "+14085551234",
       "email": "lydia@example.com",
       "address": "little tokyo",
       "tuitionTime": "Saturday, 1300-1500",
@@ -50,7 +50,7 @@
     },
     {
       "name": "George Best",
-      "phone": "9482442",
+      "phone": "+4915123456789",
       "email": "anna@example.com",
       "address": "4th street",
       "tuitionTime": "Sunday, 1400-1600",

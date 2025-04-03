@@ -20,23 +20,40 @@ public class NameTest {
     }
 
     @Test
+    public void constructor_tooLongName_throwsIllegalArgumentException() {
+        // 81 characters
+        String longName = "a".repeat(81);
+        assertThrows(IllegalArgumentException.class, () -> new Name(longName));
+    }
+
+    @Test
     public void isValidName() {
         // null name
         assertThrows(NullPointerException.class, () -> Name.isValidName(null));
 
-        // invalid name
+        // invalid names
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
-        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(Name.isValidName("^")); // only symbols not allowed
+        assertFalse(Name.isValidName("peter*")); // contains invalid symbol '*'
+        assertFalse(Name.isValidName("🚀 Rocket")); // emoji not allowed
+        assertFalse(Name.isValidName("12345")); //numbers only not allowed
 
-        // valid name
+        // valid names (Unicode and culturally relevant)
         assertTrue(Name.isValidName("peter jack")); // alphabets only
-        assertTrue(Name.isValidName("12345")); // numbers only
-        assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
-        assertTrue(Name.isValidName("Capital Tan")); // with capital letters
+        assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric
+        assertTrue(Name.isValidName("Capital Tan")); // with capitals
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(Name.isValidName("O'Connor")); // apostrophe
+        assertTrue(Name.isValidName("Nguyễn Văn A")); // Vietnamese
+        assertTrue(Name.isValidName("张伟")); // Chinese characters
+        assertTrue(Name.isValidName("Jean-Luc Picard")); // hyphenated
+        assertTrue(Name.isValidName("Vignesh S/O Muniyandi")); // with slashes
+        assertTrue(Name.isValidName("Mary J. Blige")); // with dot
+        assertTrue(Name.isValidName("Dr. Tan")); // title with dot
+        assertTrue(Name.isValidName("A. B. C.")); // initials
     }
+
 
     @Test
     public void equals() {
