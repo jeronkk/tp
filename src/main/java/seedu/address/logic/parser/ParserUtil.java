@@ -96,7 +96,7 @@ public class ParserUtil {
     public static Email parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        
+
         try {
             return new Email(trimmedEmail);
         } catch (IllegalArgumentException e) {
