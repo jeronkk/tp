@@ -48,12 +48,12 @@ public class CommandConfig {
                 new CommandUsageInfo(
                         "list by tuition time - list all contacts with tuition on a particular day (Monday - Sunday)",
                         "list tt/[TUITION TIME]",
-                        "list tt/Monday or list tt/mon"
+                        "list tt/Monday OR list tt/mon"
                 ),
                 new CommandUsageInfo(
                         "sort - Sort all contacts according to a field entered by user (ascending by default)",
                         "sort by [FIELD] asc/desc",
-                        "sort by name asc or sort by phone desc"
+                        "sort by name asc OR sort by phone desc"
                 ),
                 new CommandUsageInfo(
                         "help - list all commands with explanation",
