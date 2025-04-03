@@ -22,7 +22,7 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(
                         new Name("Alex Yeoh"),
-                        new Phone("87438807"),
+                        new Phone("81234567"),
                         new Email("alexyeoh@example.com"),
                         new Address("Blk 30 Geylang Street 29, #06-40"),
                         new TuitionTime("Monday, 1400-1600"),
@@ -30,7 +30,7 @@ public class SampleDataUtil {
                 ),
             new Person(
                         new Name("Bernice Yu"),
-                        new Phone("99272758"),
+                        new Phone("98765432"),
                         new Email("berniceyu@example.com"),
                         new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                         new TuitionTime("Tuesday, 1000-1200"),
@@ -38,7 +38,7 @@ public class SampleDataUtil {
                 ),
             new Person(
                         new Name("Charlotte Oliveiro"),
-                        new Phone("93210283"),
+                        new Phone("87654321"),
                         new Email("charlotte@example.com"),
                         new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                         new TuitionTime("Wednesday, 0930-1130"),
@@ -46,7 +46,7 @@ public class SampleDataUtil {
                 ),
             new Person(
                         new Name("David Li"),
-                        new Phone("91031282"),
+                        new Phone("88888888"),
                         new Email("lidavid@example.com"),
                         new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                         new TuitionTime("Thursday, 1500-1700"),
@@ -54,7 +54,7 @@ public class SampleDataUtil {
                 ),
             new Person(
                         new Name("Irfan Ibrahim"),
-                        new Phone("92492021"),
+                        new Phone("98765432"),
                         new Email("irfan@example.com"),
                         new Address("Blk 47 Tampines Street 20, #17-35"),
                         new TuitionTime("Friday, 0800-1000"),
@@ -62,7 +62,7 @@ public class SampleDataUtil {
                 ),
             new Person(
                         new Name("Roy Balakrishnan"),
-                        new Phone("92624417"),
+                        new Phone("91234567"),
                         new Email("royb@example.com"),
                         new Address("Blk 45 Aljunied Street 85, #11-31"),
                         new TuitionTime("Saturday, 1300-1500"),
