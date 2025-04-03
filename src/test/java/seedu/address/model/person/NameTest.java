@@ -20,6 +20,13 @@ public class NameTest {
     }
 
     @Test
+    public void constructor_tooLongName_throwsIllegalArgumentException() {
+        // 81 characters
+        String longName = "a".repeat(81);
+        assertThrows(IllegalArgumentException.class, () -> new Name(longName));
+    }
+
+    @Test
     public void isValidName() {
         // null name
         assertThrows(NullPointerException.class, () -> Name.isValidName(null));
