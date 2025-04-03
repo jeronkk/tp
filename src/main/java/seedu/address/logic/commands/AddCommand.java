@@ -39,7 +39,8 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "Science";
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book. "
+            + "They have the same name and phone number.";
 
     private final Person toAdd;
 

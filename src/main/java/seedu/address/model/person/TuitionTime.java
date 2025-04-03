@@ -14,6 +14,7 @@ public class TuitionTime {
             "Tuition time must be in the format: 'DayOfWeek, HHMM-HHMM'.\n"
                     + "Day must be Monday to Sunday (case-insensitive), times must be in 24-hour format and "
                     + "start time cannot be later than end time.\n"
+                    + "There is a space after the comma.\n"
                     + "Example: Monday, 1000-1200 or Mon, 1000-1200";
 
     /**
