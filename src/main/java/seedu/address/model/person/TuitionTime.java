@@ -13,6 +13,7 @@ public class TuitionTime {
     public static final String MESSAGE_CONSTRAINTS =
             "Tuition time must be in the format: 'DayOfWeek, HHMM-HHMM'.\n"
                     + "Day must be Monday to Sunday (case-insensitive), and times must be in 24-hour format.\n"
+                    + "There is a space after the comma.\n"
                     + "Example: Monday, 1000-1200 or Mon, 1000-1200";
 
     /**
