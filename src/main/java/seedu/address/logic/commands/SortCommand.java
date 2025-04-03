@@ -96,10 +96,6 @@ public class SortCommand extends Command {
 
         assert comparator != null : "Comparator should have been set for sortField: " + sortField;
 
-        if (!ascending) {
-            comparator = comparator.reversed();
-        }
-
         model.sortFilteredPersonList(comparator);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         logger.info("Sort completed successfully");
