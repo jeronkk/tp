@@ -205,6 +205,16 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
+### Command History Navigation : arrow keys
+
+Use the up (↑) and down (↓) arrow keys to navigate your previously entered commands.
+
+* Pressing up (↑) cycles backward through your command history.
+
+* Pressing down (↓) cycles forward to more recent commands.
+
+* This helps quickly re-enter or modify past commands without retyping.
+
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
