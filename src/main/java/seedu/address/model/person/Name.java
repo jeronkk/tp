@@ -8,36 +8,44 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
-
+    // 1. Public static final constants
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should only contain at least one letter (Unicode characters allowed), "
+                    + "optionally numbers/punctuation (',./-), must not be blank, "
+                    + "and must be at most 80 characters long.";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "^(?=.*[\\p{L}\\p{M}])[\\p{L}\\p{M}\\p{N}'./\\- ]+$";
+    public static final String VALIDATION_REGEX =
+            "^(?=.*[\\p{L}\\p{M}])[\\p{L}\\p{M}\\p{N}'./\\- ]+$";
+
+    // 2. Private static final constants
+    private static final int MAX_LENGTH = 80;
 
     public final String fullName;
 
     /**
      * Constructs a {@code Name}.
      *
-     * @param name A valid name.
+     * @param name A valid name (must not exceed 80 characters and match regex).
      */
     public Name(String name) {
         requireNonNull(name);
+
+        // 1. Check length constraint
+        checkArgument(name.length() <= MAX_LENGTH, MESSAGE_CONSTRAINTS);
+
+        // 2. Check content/format constraint
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+
+        this.fullName = name;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid name (must match regex).
      */
     public static boolean isValidName(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {
@@ -63,5 +71,4 @@ public class Name {
     public int hashCode() {
         return fullName.hashCode();
     }
-
 }
