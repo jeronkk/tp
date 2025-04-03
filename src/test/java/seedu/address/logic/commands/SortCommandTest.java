@@ -86,9 +86,9 @@ public class SortCommandTest {
 
     @Test
     public void execute_phoneFieldAscending_sortsCorrectly() throws Exception {
-        Person alice = new PersonBuilder().withName("Alice").withPhone("1111").build();
-        Person bob = new PersonBuilder().withName("Bob").withPhone("2222").build();
-        Person charlie = new PersonBuilder().withName("Charlie").withPhone("3333").build();
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567").build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92234567").build();
+        Person charlie = new PersonBuilder().withName("Charlie").withPhone("93234567").build();
 
         ObservableList<Person> list = FXCollections.observableArrayList(charlie, bob, alice);
         SimpleModelStub model = new SimpleModelStub(list);
