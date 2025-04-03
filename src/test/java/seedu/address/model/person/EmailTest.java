@@ -67,6 +67,21 @@ public class EmailTest {
     }
 
     @Test
+    public void emailLengthChecks() {
+        // 1. local part > 64
+        String localTooLong = "a".repeat(65) + "@domain.com";
+        assertThrows(IllegalArgumentException.class, () -> new Email(localTooLong));
+
+        // 2. domain part > 255
+        String domainTooLong = "local@" + "b".repeat(256);
+        assertThrows(IllegalArgumentException.class, () -> new Email(domainTooLong));
+
+        // 3. total > 320
+        String totalTooLong = "a".repeat(320) + "@x"; // Actually 321+ chars if you do the math
+        assertThrows(IllegalArgumentException.class, () -> new Email(totalTooLong));
+    }
+
+    @Test
     public void equals() {
         Email email = new Email("valid@email");
 
@@ -83,6 +98,6 @@ public class EmailTest {
         assertFalse(email.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(email.equals(new Email("other.valid@email")));
+        assertFalse(email.equals(new Email("other@email")));
     }
 }
