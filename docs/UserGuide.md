@@ -6,7 +6,7 @@
 
 # TutorProMax
 
-TutorProMax is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+TutorProMax is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -155,6 +155,14 @@ Examples:
 * `sort name asc` Sorts address book using ascending order of names.
 * `sort tuition desc` Sorts address book using descending order of tuition times.
 * `sort by email asc` Sorts address book using ascending order of email addresses. 
+
+<box type="warning" seamless>
+
+**Possible Errors:**
+
+❌ If you try to sort by an invalid field, TutorProMax will return:
+
+`Invalid sort field. Valid fields: name, phone, email, address, tuition, tag`
 
 ### Deleting a person : `delete`
 
