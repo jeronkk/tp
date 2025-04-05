@@ -21,6 +21,12 @@ public class FindCommandParserTest {
     }
 
     @Test
+    public void parse_withFieldKeyword_throwsParseException() {
+        assertParseFailure(parser, " n/Alice", String.format(
+                "Field keyword n/ is not required. \n%1$s", FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
