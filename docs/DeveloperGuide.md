@@ -280,7 +280,12 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:  
+- **TutorProMax** is an all-in-one desktop assistant built specifically for tutors. 
+Whether they are juggling multiple students, managing lesson time, or students' subjects, TutorProMax keeps everything organised in one place. 
+With intuitive features like scheduling, reminders, and offline support, it empowers tutors to focus more on teaching and less on administrative work. Say goodbye to cluttered spreadsheets and scattered notes — TutorProMax helps tutors run their tutoring business like pros. 
+- It is especially suited for tutors who can type fast and prefer a **Command Line Interface (CLI)** over graphical interfaces, allowing for faster, more efficient workflows.
+
 
 
 ### User stories
