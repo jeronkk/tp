@@ -11,6 +11,25 @@ TutorProMax is a **desktop app for managing contacts, optimized for use via a Co
 <!-- * Table of Contents -->
 <page-nav-print />
 
+## Why Choose TutorProMax?
+
+TutorProMax isn't just another task management app — it's your ultimate companion for managing tutoring sessions and staying organized. Here's why you'll love it:
+
+- 📚 **Tailored for Tutors**  
+  Manage students, track lessons, set subject preferences, and manage tuition time with ease.
+
+- ⏱️ **Fast workflow**  
+  CLI commands let you manage your data quickly — perfect for fast typists.
+
+- 🔒 **Offline and Secure**  
+  No internet required. Your data stays private and local.
+
+- 🖥️ **Portable**  
+  Simple .jar file — no installation required.
+
+> 🚀 **TutorProMax helps you save time and stay organised!**
+
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -23,8 +42,13 @@ TutorProMax is a **desktop app for managing contacts, optimized for use via a Co
 1. Copy the file to the folder you want to use as the _home folder_ for TutorProMax.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tutorpromax.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   - ```bash 
+     cd path/to/your/folder
+     java -jar tutorpromax.jar
+   - Alternatively, for Mac users, double-click on the folder where the jar file is in, and select `open terminal at the filder`
+   
+3. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+      ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
