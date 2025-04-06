@@ -55,7 +55,7 @@ public class Email {
 
     // domain => zero or more labels + final label
     private static final String DOMAIN_REGEX =
-            DOMAIN_PART_REGEX + "(\\." + DOMAIN_PART_REGEX + ")+";
+            "(" + DOMAIN_PART_REGEX + "\\.)+" + DOMAIN_LAST_PART_REGEX;
 
     // Final pattern => localPart@domain
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;

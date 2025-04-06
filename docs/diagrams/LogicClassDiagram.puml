@@ -53,6 +53,6 @@ LogicManager .down.> CommandResult
 Command .up.> CommandResult : <<create>>
 
 note right of XYZCommand
-XYZCommand = AddCommand,\nFindCommand, DeleteCommand, etc
+XYZCommand = AddCommand, FindCommand, DeleteCommand, etc
 end note
 @enduml
