@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+ TutorProxMax is adapted from AddressBook Level 3: https://github.com/nus-cs2103-AY2425S2/tp
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -384,59 +384,189 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Tutor**: Tutor who conducts weekly one to one, face-to-face lessons with his/her student
+* **Tutor**: Private tutor who conducts weekly one to one, face-to-face lessons with his/her students.
+* **Tag**: Tags are used to classify students according to **subjects**.
 
 --------------------------------------------------------------------------------------------------------------------
+## Appendix: Instructions for Manual Testing
 
-## **Appendix: Instructions for manual testing**
+Below are the manual test cases for verifying each feature of **TutorProMax**.
 
-Given below are instructions to test the app manually.
+> **Note:** These are starting points. Testers are encouraged to perform exploratory testing for more thorough coverage.
 
-<box type="info" seamless>
+---
 
-**Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+### Launch and Shutdown
 
-</box>
+#### 1. Initial Launch
+- Download the `.jar` file and copy it into an empty folder.
+- Open a terminal and `cd` into the folder.
+- Run: `java -jar tutorpromax.jar`
+- **Expected:** GUI opens with sample data.
 
-### Launch and shutdown
+#### 2. Saving Window Preferences
+- Resize and move the window. Close the app.
+- Re-launch it using the same command.
+- **Expected:** Previous window size and position is retained.
 
-1. Initial launch
+---
 
-   1. Download the jar file and copy into an empty folder
+### Adding a Person
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+**Command:** `add n/John Doe p/98765432 e/john@example.com a/123 Clementi Rd tt/Monday, 1000-1200 t/Math t/Science`
 
-1. Saving window preferences
+- **Expected:** John Doe is added to the list with all the details correctly saved and displayed.
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+#### Invalid Cases to Test:
+- Missing mandatory fields: 
+  - `add p/98765432` 
+  - Error Message: `Invalid command format! 
+  add: Adds a person to the address book. Parameters: n/NAME p/PHONE e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]...
+  Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 tt/Monday, 1400-1600 t/Math t/Science`.
+- Invalid phone number: `add n/Jane p/abc123` → Same error message as above.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+---
 
-1. _{ more test cases …​ }_
+### Listing All Persons
 
-### Deleting a person
+**Commands to Test:**
+- `list`
+- `list t/Math`
+- `list tt/Monday`
 
-1. Deleting a person while all persons are being shown
+- **Expected:**
+    - `list`: Shows all contacts.
+    - `list t/Math`: Filters only those with Math tag (case-sensitive).
+    - `list tt/Monday`: Filters only those with tuition on Monday.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+#### Invalid Cases to Test:
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+- Invalid day format: `list tt/mondayyy` 
+  - Error Message: `Invalid day entered. Please use a valid day like 'monday' or 'mon' (case-insensitive).
+    list with no prefix behind list all contacts.
+    list with prefix list all contacts with the keyword specified in rhe prefix.
+    Parameters: [field, keyword]
+    There are 2 fields available: t/[subject] or tt/[tuition time (day)].
+    Example: list t/Math
+    Example: list tt/Monday`
+- Empty field with prefix: `list t/` 
+  - Error Message: `Please enter field and keyword!
+    list with no prefix behind list all contacts.
+    list with prefix list all contacts with the keyword specified in rhe prefix.
+    Parameters: [field, keyword]
+    There are 2 fields available: t/[subject] or tt/[tuition time (day)].
+    Example: list t/Math
+    Example: list tt/Monday`
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+---
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+### Finding Persons by Name
 
-1. _{ more test cases …​ }_
+**Command:** `find John`
 
-### Saving data
+- **Expected:** All persons with "John" in their name (case-insensitive) are listed.
 
-1. Dealing with missing/corrupted data files
+#### Additional Cases:
+- `find John Alex`
+- `find jOhN`
+- `find` (no input) → Should show error.
+  - `Invalid command format!
+    find: Finds all persons whose names contain any of the specified keywords (case-insensitive) and displays them as a list with index numbers.
+    Parameters: KEYWORD [MORE_KEYWORDS]...
+    Example: find alice bob charlie`
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+---
 
-1. _{ more test cases …​ }_
+### Editing a Person
+
+**Command:** `edit 1 p/91234567 e/new@example.com`
+
+- **Expected:** Updates the phone and email of person at index 1.
+
+#### Additional Cases:
+- `edit 2 n/Alice t/` → Clears tags.
+- `edit 5` (no fields) → Error message.
+- `edit 0` or index out of bounds → Error message.
+
+---
+
+### Deleting a Person
+
+**Command:** `delete 2`
+
+- **Expected:** The 2nd person in the current list is removed.
+
+#### Additional Cases:
+- `delete` → Error.
+- `delete abc` → Error.
+- `delete 100` → Error if out of bounds.
+
+---
+
+### Sorting
+
+**Commands to Test:**
+- `sort name asc`
+- `sort tuition desc`
+- `sort by email asc`
+
+- **Expected:** List is sorted as specified.
+
+#### Invalid Case:
+- `sort by banana desc` → Error: Invalid sort field.
+
+---
+
+### Clearing All Entries
+
+**Command:** `clear`
+
+- **Expected:** All contacts are removed.
+
+#### Edge Case:
+- `clear 123` → Should still work and clear everything.
+
+---
+
+### Exiting the Program
+
+**Command:** `exit`
+
+- **Expected:** Application closes.
+
+---
+
+### Help Command
+
+**Command:** `help`
+
+- **Expected:** Help window opens with list of commands.
+
+---
+
+### Saving and Editing Data
+
+#### 1. Data Persistence
+- Add/edit/delete a person.
+- Close and reopen the app.
+- **Expected:** All data changes are saved.
+
+#### 2. Editing the JSON File
+- Navigate to `[home]/data/addressbook.json`
+- Manually modify a valid entry.
+- Restart the app.
+- **Expected:** Updated values are reflected.
+
+#### Corrupted File
+- Add invalid JSON syntax.
+- Restart app.
+- **Expected:** App discards data and starts fresh.
+
+---
+
+### Command History
+
+- Press `↑` and `↓` keys after entering commands.
+- **Expected:** Cycles through previously entered commands.
+
+---
