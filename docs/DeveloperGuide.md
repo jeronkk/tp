@@ -325,9 +325,88 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. No matching student found
 
-* 2a1. TutorProMax displays a message indicating that no student matches the given name
+  * 2a1. TutorProMax displays a message indicating that no student matches the given name
 
-    Use case ends
+      Use case ends
+
+**Use case: List persons**
+
+**MSS**
+
+1.  User requests to list persons
+2.  TutorProMax lists all students in the address book.
+
+    Use case ends.
+
+**Extensions**
+* 1a. User specifies a tag keyword (e.g. `list t/math`).
+  * 1a1. TutorProMax lists students whose tags contain the specified keyword.
+    Use case ends.
+* 1b. User specifies a tuition day keyword (e.g. `list tt/monday`).
+  * 1b1. TutorProMax lists students whose tuition time contains the specified day.  
+    Use case ends. 
+* 1c. User specifies both tag and tuition time (e.g. `list tt/monday t/math`).
+  * 1c1. TutorProMax lists students who match both the tuition day and tag.
+    Use case ends.
+* 1d. No students match the given filter(s)
+  * 1d1. TutorProMax shows a message indicating no matching students found.  
+  Use case ends.
+* 1e. User inputs an invalid format (e.g. `list tt/mondae`)
+  * 1e1. TutorProMax shows an error message indicating invalid input.  
+  Use case ends.
+
+**Use Case: Sort students**
+
+**MSS**
+
+1. User requests to sort students by a specified field and order.
+2. TutorProMax sorts and displays the student list accordingly.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User specifies a valid field and order (e.g. `sort name asc`)
+    * 1a1. TutorProMax sorts the address book using the given field and order.  
+      Use case ends.
+
+* 1b. User specifies an invalid field (e.g. `sort grade asc`)
+    * 1b1. TutorProMax shows an error message:  
+      `Invalid sort field. Valid fields: name, phone, email, address, tuition, tag`  
+      Use case ends.
+
+* 1c. User omits sort order (e.g. `sort name`)
+    * 1c1. TutorProMax shows an error message indicating invalid command format.  
+      Use case ends.
+
+* 1d. User inputs an invalid sort order (e.g. `sort name upwards`)
+    * 1d1. TutorProMax shows an error message indicating sort order must be `asc` or `desc`.  
+      Use case ends.
+
+**Use Case: Edit a student**
+
+**MSS**
+
+1. User requests to edit a specific student by specifying their index in the list.
+2. TutorProMax updates the student’s details with the provided fields.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The specified index is invalid (e.g. index does not exist in the current list)
+    * 1a1. TutorProMax shows an error message indicating the index is invalid.  
+      Use case ends.
+
+* 1b. No fields are specified for editing (e.g. `edit 2`)
+    * 1b1. TutorProMax shows an error message indicating that at least one field must be provided.  
+      Use case ends.
+
+* 1c. User clears all tags by specifying `t/` without any tags
+    * 1c1. TutorProMax removes all tags from the student.  
+      Use case ends.
+
+* 1d. User specifies invalid values (e.g. email without '@', invalid phone number, etc.)
+    * 1d1. TutorProMax shows an appropriate validation error message.  
+      Use case ends.
 
 
 ### Non-Functional Requirements
