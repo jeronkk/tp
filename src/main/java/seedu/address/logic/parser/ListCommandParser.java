@@ -40,8 +40,11 @@ public class ListCommandParser implements Parser<ListCommand> {
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TUITION_TIME, PREFIX_TAG);
-        Predicate<Person> pred;
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        }
 
+        Predicate<Person> pred;
         if (argMultimap.getValue(PREFIX_TUITION_TIME).isPresent() && argMultimap.getValue(PREFIX_TAG).isPresent()) {
             this.message = MESSAGE_SUCCESS_3;
             pred = parseTuitionTime(argMultimap).and(parseTags(argMultimap));
