@@ -71,6 +71,7 @@ public class ListCommandParser implements Parser<ListCommand> {
      */
     private Predicate<Person> parseTuitionTime(ArgumentMultimap argMultimap) throws ParseException {
         String keyword = argMultimap.getValue(PREFIX_TUITION_TIME).get().trim();
+        assert keyword != null;
         if (keyword.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_MISSING_KEYWORD, ListCommand.MESSAGE_USAGE));
