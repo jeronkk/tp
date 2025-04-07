@@ -32,6 +32,11 @@ public class PhoneTest {
     }
 
     @Test
+    public void standardizePhone_invalidNumber_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> Phone.standardizePhone("+++++"));
+    }
+
+    @Test
     public void isValidPhone() {
         // null phone number
         assertFalse(Phone.isValidPhone(null)); // null

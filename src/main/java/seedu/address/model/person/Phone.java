@@ -59,7 +59,7 @@ public class Phone {
     /**
      * Converts the user input into a standardized international format (e.g. "+65 9123 4567").
      */
-    private static String standardizePhone(String input) {
+    static String standardizePhone(String input) {
         try {
             String cleaned = input.replaceAll("\\s+", "").replaceAll("-", "");
             Phonenumber.PhoneNumber parsed = phoneUtil.parse(cleaned, "SG");
