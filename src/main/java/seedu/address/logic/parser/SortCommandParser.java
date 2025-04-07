@@ -13,7 +13,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         String trimmedArgs = args.trim().toLowerCase();
 
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException("Please specify a field to sort by. E.g., sort by name");
+            throw new ParseException(SortCommand.MESSAGE_INVALID_FIELD);
         }
 
         String[] tokens = trimmedArgs.split("\\s+");

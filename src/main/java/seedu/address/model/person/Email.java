@@ -21,10 +21,11 @@ public class Email {
             + "1. The total length (local part + '@' + domain) must be at most 320 characters.\n"
             + "2. The local-part must be at most 64 characters.\n"
             + "3. The domain name must be at most 255 characters.\n"
-            + "4. The local-part should only contain alphanumeric characters and these special characters, excluding "
+            + "4. There must be a dot (.) in the domain to be a valid email address.\n"
+            + "5. The local-part should only contain alphanumeric characters and these special characters, excluding "
             + "the parentheses, (" + SPECIAL_CHARACTERS + "). The local-part may not start or end with any special "
             + "characters.\n"
-            + "5. This is followed by a '@' and then a domain name. The domain name is made up of domain labels "
+            + "6. This is followed by a '@' and then a domain name. The domain name is made up of domain labels "
             + "separated by periods.\n"
             + "   Each domain label must start and end with alphanumeric characters,\n"
             + "   and consist of alphanumeric characters, separated only by hyphens, if any.\n"
@@ -54,7 +55,7 @@ public class Email {
 
     // domain => zero or more labels + final label
     private static final String DOMAIN_REGEX =
-            "(" + DOMAIN_PART_REGEX + "\\.)*" + DOMAIN_LAST_PART_REGEX;
+            "(" + DOMAIN_PART_REGEX + "\\.)+" + DOMAIN_LAST_PART_REGEX;
 
     // Final pattern => localPart@domain
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;

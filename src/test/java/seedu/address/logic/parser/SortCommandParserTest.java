@@ -32,7 +32,8 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_missingField_throwsParseException() {
-        assertParseFailure(parser, "   ", "Please specify a field to sort by. E.g., sort by name");
+        assertParseFailure(parser, "   ", "Invalid sort field. Valid fields: name, phone, "
+                + "email, address, tuition, tag");
     }
 
     @Test

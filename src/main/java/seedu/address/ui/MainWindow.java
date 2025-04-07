@@ -66,6 +66,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        this.primaryStage.setTitle("TutorProMax");
     }
 
     public Stage getPrimaryStage() {

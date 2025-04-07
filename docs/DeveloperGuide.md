@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+ TutorProxMax is adapted from AddressBook Level 3: https://github.com/nus-cs2103-AY2425S2/tp
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -164,77 +164,39 @@ This section describes some noteworthy details on how certain features are imple
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+#### List Command
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The sequence diagram below illustrates how the list command is processed when the user enters a command such as list t/Math. 
+The process involves the following key objects:
+- LogicManager parses the user input into a ListCommand.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+- ListCommand is executed via the Model.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+- The model updates its filtered list using the predicate provided by ListCommand.
 
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
+- The UI is automatically refreshed based on the updated filtered list.
+  
+<puml src="diagrams/ListSequenceDiagram.puml" alt="ListCommand Sequence Diagram" />
 
 
-<box type="info" seamless>
+#### Sort Command
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+The `sort` feature allows tutors to organize the student list based on specific fields such as name, address, email, phone, subject, or tuition timing. This improves usability by enabling tutors to view student data in a desired order, which is especially useful when managing many students.
 
-</box>
+The `sort` command is implemented using the `SortCommand` class, which accepts a field keyword (e.g., `name`, `t/Math`) and applies the corresponding comparator to the address book list. The command then updates the filtered person list with the sorted result.
 
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
+The sorting logic is encapsulated in the `PersonComparators` utility class, which contains static comparators for each sortable field. This separation of concerns makes it easier to maintain and extend.
 
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+When the `sort` command is executed:
 
-<box type="info" seamless>
+1. The user input is parsed into a `SortCommand` with a specific comparator.
+2. The model’s `sortPersonList` method is called with this comparator.
+3. The list displayed to the user is updated to reflect the new sorted order.
 
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+If an invalid or unsupported field is provided, the command will return an error message explaining valid options.
 
-</box>
+<puml src="diagrams/SortSequenceDiagram.puml" alt="SortCommand Sequence Diagram" />
 
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
 
 #### Design considerations:
 
@@ -249,7 +211,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
 
 ### \[Proposed\] Data archiving
 
@@ -280,7 +241,12 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:  
+- **TutorProMax** is an all-in-one desktop assistant built specifically for tutors. 
+Whether they are juggling multiple students, managing lesson time, or students' subjects, TutorProMax keeps everything organised in one place. 
+With intuitive features like scheduling, reminders, and offline support, it empowers tutors to focus more on teaching and less on administrative work. Say goodbye to cluttered spreadsheets and scattered notes — TutorProMax helps tutors run their tutoring business like pros. 
+- It is especially suited for tutors who can type fast and prefer a **Command Line Interface (CLI)** over graphical interfaces, allowing for faster, more efficient workflows.
+
 
 
 ### User stories
@@ -299,7 +265,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user     | list students by subject                       | view all students with a filtered subject                                         |
 | `* *`    | user     | sort students according to a field I specified | view all student a in particular order for to find them more easily               |
 
-*{More to be added}*
 
 ### Use cases
 
@@ -365,8 +330,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends
 
 
-*{More to be added}*
-
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
@@ -374,64 +337,193 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. The system should not require additional dependencies beyond standard Java libraries for core functionalities.
 
-*{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Tutor**: Tutor who conducts weekly one to one, face-to-face lessons with his/her student
+* **Tutor**: Private tutor who conducts weekly one to one, face-to-face lessons with his/her students.
+* **Tag**: Tags are used to classify students according to **subjects**.
 
 --------------------------------------------------------------------------------------------------------------------
+## Appendix: Instructions for Manual Testing
 
-## **Appendix: Instructions for manual testing**
+Below are the manual test cases for verifying each feature of **TutorProMax**.
 
-Given below are instructions to test the app manually.
+> **Note:** These are starting points. Testers are encouraged to perform exploratory testing for more thorough coverage.
 
-<box type="info" seamless>
+---
 
-**Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+### Launch and Shutdown
 
-</box>
+#### 1. Initial Launch
+- Download the `.jar` file and copy it into an empty folder.
+- Open a terminal and `cd` into the folder.
+- Run: `java -jar tutorpromax.jar`
+- **Expected:** GUI opens with sample data.
 
-### Launch and shutdown
+#### 2. Saving Window Preferences
+- Resize and move the window. Close the app.
+- Re-launch it using the same command.
+- **Expected:** Previous window size and position is retained.
 
-1. Initial launch
+---
 
-   1. Download the jar file and copy into an empty folder
+### Adding a Person
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+**Command:** `add n/John Doe p/98765432 e/john@example.com a/123 Clementi Rd tt/Monday, 1000-1200 t/Math t/Science`
 
-1. Saving window preferences
+- **Expected:** John Doe is added to the list with all the details correctly saved and displayed.
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+#### Invalid Cases to Test:
+- Missing mandatory fields: 
+  - `add p/98765432` 
+  - Error Message: `Invalid command format! 
+  add: Adds a person to the address book. Parameters: n/NAME p/PHONE e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]...
+  Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 tt/Monday, 1400-1600 t/Math t/Science`.
+- Invalid phone number: `add n/Jane p/abc123` → Same error message as above.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+---
 
-1. _{ more test cases …​ }_
+### Listing All Persons
 
-### Deleting a person
+**Commands to Test:**
+- `list`
+- `list t/Math`
+- `list tt/Monday`
 
-1. Deleting a person while all persons are being shown
+- **Expected:**
+    - `list`: Shows all contacts.
+    - `list t/Math`: Filters only those with Math tag (case-sensitive).
+    - `list tt/Monday`: Filters only those with tuition on Monday.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+#### Invalid Cases to Test:
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+- Invalid day format: `list tt/mondayyy` 
+  - Error Message: `Invalid day entered. Please use a valid day like 'monday' or 'mon' (case-insensitive).
+    list with no prefix behind list all contacts.
+    list with prefix list all contacts with the keyword specified in rhe prefix.
+    Parameters: [field, keyword]
+    There are 2 fields available: t/[subject] or tt/[tuition time (day)].
+    Example: list t/Math
+    Example: list tt/Monday`
+- Empty field with prefix: `list t/` 
+  - Error Message: `Please enter field and keyword!
+    list with no prefix behind list all contacts.
+    list with prefix list all contacts with the keyword specified in rhe prefix.
+    Parameters: [field, keyword]
+    There are 2 fields available: t/[subject] or tt/[tuition time (day)].
+    Example: list t/Math
+    Example: list tt/Monday`
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+---
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+### Finding Persons by Name
 
-1. _{ more test cases …​ }_
+**Command:** `find John`
 
-### Saving data
+- **Expected:** All persons with "John" in their name (case-insensitive) are listed.
 
-1. Dealing with missing/corrupted data files
+#### Additional Cases:
+- `find John Alex`
+- `find jOhN`
+- `find` (no input) → Should show error.
+  - `Invalid command format!
+    find: Finds all persons whose names contain any of the specified keywords (case-insensitive) and displays them as a list with index numbers.
+    Parameters: KEYWORD [MORE_KEYWORDS]...
+    Example: find alice bob charlie`
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+---
 
-1. _{ more test cases …​ }_
+### Editing a Person
+
+**Command:** `edit 1 p/91234567 e/new@example.com`
+
+- **Expected:** Updates the phone and email of person at index 1.
+
+#### Additional Cases:
+- `edit 2 n/Alice t/` → Clears tags.
+- `edit 5` (no fields) → Error message.
+- `edit 0` or index out of bounds → Error message.
+
+---
+
+### Deleting a Person
+
+**Command:** `delete 2`
+
+- **Expected:** The 2nd person in the current list is removed.
+
+#### Additional Cases:
+- `delete` → Error.
+- `delete abc` → Error.
+- `delete 100` → Error if out of bounds.
+
+---
+
+### Sorting
+
+**Commands to Test:**
+- `sort name asc`
+- `sort tuition desc`
+- `sort by email asc`
+
+- **Expected:** List is sorted as specified.
+
+#### Invalid Case:
+- `sort by banana desc` → Error: Invalid sort field.
+
+---
+
+### Clearing All Entries
+
+**Command:** `clear`
+
+- **Expected:** All contacts are removed.
+
+#### Edge Case:
+- `clear 123` → Should still work and clear everything.
+
+---
+
+### Exiting the Program
+
+**Command:** `exit`
+
+- **Expected:** Application closes.
+
+---
+
+### Help Command
+
+**Command:** `help`
+
+- **Expected:** Help window opens with list of commands.
+
+---
+
+### Saving and Editing Data
+
+#### 1. Data Persistence
+- Add/edit/delete a person.
+- Close and reopen the app.
+- **Expected:** All data changes are saved.
+
+#### 2. Editing the JSON File
+- Navigate to `[home]/data/addressbook.json`
+- Manually modify a valid entry.
+- Restart the app.
+- **Expected:** Updated values are reflected.
+
+#### Corrupted File
+- Add invalid JSON syntax.
+- Restart app.
+- **Expected:** App discards data and starts fresh.
+
+---
+
+### Command History
+
+- Press `↑` and `↓` keys after entering commands.
+- **Expected:** Cycles through previously entered commands.
+
+---
