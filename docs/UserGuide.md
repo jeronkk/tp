@@ -126,20 +126,31 @@ Examples:
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book. Specify a subject or tuition time with keyword to 
-list only persons with matching subject or tuition time.
+list only persons with matching subject or tuition time. If both subject and tuition time are specified,
+both filter will be applied and only persons that fulfil both criteria will be shown.
 
+<<<<<<< HEAD
+Format: `list [t/SUBJECT] [tt/TUITIONTIME]`
+=======
 Format:
 * `list` - Lists all students
 * `list t/[keyword_tag]` - Lists by tag
 * `list tt/[keyword_tuition]` - Lists by tuition day (e.g. `Monday`, `mon`, etc.)
 
 **Accepted day formats:** You can use **full day names** (`Monday`, `Tuesday`, ...) or **short forms** (`mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `sun`). The search is **case-insensitive**.
+>>>>>>> master
 
 Examples:
 * `list` Lists all persons in the address book.
 * `list t/math` Lists all persons with keyword math in their tags (subjects).
+<<<<<<< HEAD
+* `list tt/monday` Lists all persons with keyword monday in their tuition times.
+* `list t/math tt/Monday, 1000-1200` Lists all persons with keyword math in their 
+tags (subjects) and tuition time of Monday, 1000-1200.
+=======
 * `list tt/monday` Lists all persons with tuition on Monday
 * `list tt/mon` – Also lists persons with tuition on Monday (short form).
+>>>>>>> master
 
 ### Editing a person : `edit`
 
@@ -289,11 +300,11 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 tt/Monday, 1000-1200 t/friend t/colleague`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]…​` <br> e.g., `add n/James Ho p/92224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 tt/Monday, 1000-1200 t/friend t/colleague`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Sort**   | `sort [field] asc/desc`<br> e.g. `sort name asc`
-**List**   | `list [keyword]` <br> e.g. `list` <br> e.g. `list t/Math` <br> e.g. `list tt/Monday or list tt/mon`
+**List**   | `list [t/SUBJECT] [tt/TUITIONTIME]` <br> e.g. `list` <br> e.g. `list t/Math` <br> e.g. `list tt/Monday` or `list tt/mon`
 **Help**   | `help`
