@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_TT_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_MISSING_KEYWORD;
@@ -43,6 +45,18 @@ public class ListCommandParserTest {
                 "Monday"
         );
         assertParseSuccess(parser, input, expectedCommand);
+    }
+
+    @Test
+    public void parse_validFullTuitionTime_noThrow() {
+        String input = " tt/Monday, 1000-1200";
+        assertDoesNotThrow(() -> parser.parse(input));
+    }
+
+    @Test
+    public void parse_validTuitionTimeAndTag_noThrow() {
+        String input = " tt/Monday t/Math";
+        assertDoesNotThrow(() -> parser.parse(input));
     }
 
     @Test
