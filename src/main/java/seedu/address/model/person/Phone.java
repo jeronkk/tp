@@ -14,7 +14,12 @@ import com.google.i18n.phonenumbers.Phonenumber;
 public class Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should be valid international or local numbers, e.g., +65 9123 4567 or 91234567";
+            """
+                    Phone numbers should be valid international or local numbers.\
+
+                    Default to Singapore number when there is no country code.\
+
+                    e.g., +65 9123 4567, 91234567, +1 408-555-1234""";
 
     private static final PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
 
