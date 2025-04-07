@@ -29,9 +29,10 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone(" ")); // spaces only
         assertFalse(Phone.isValidPhone("91")); // too short (even for SG)
         assertFalse(Phone.isValidPhone("phone")); // non-numeric
-        assertFalse(Phone.isValidPhone("9011p041")); // alphabet in digits
+        assertFalse(Phone.isValidPhone("9381e9173")); // alphabet in digits
         assertFalse(Phone.isValidPhone("+1 123-4567")); // US number too short (missing area code)
         assertFalse(Phone.isValidPhone("+999 12345678")); // invalid country code
+        assertFalse(Phone.isValidPhone("9123  4567")); // multiple consecutive spaces
 
         // valid phone numbers
         assertTrue(Phone.isValidPhone("91234567")); // valid SG local
