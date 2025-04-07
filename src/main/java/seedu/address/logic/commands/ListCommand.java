@@ -17,10 +17,12 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all students";
     public static final String EMPTY_LIST = "No student found.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all persons with keyword (case-insensitive) "
-            + "for field specified and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " with no prefix behind list all contacts.\n"
+            + "list with prefix lists all contacts with the keyword specified in the prefix.\n"
             + "Parameters: [field, keyword]\n"
-            + "Example: " + COMMAND_WORD + " t/Math";
+            + "There are 2 fields available: t/[subject] or tt/[tuition time (day)].\n"
+            + "Example: " + COMMAND_WORD + " t/Math\n"
+            + "Example: " + COMMAND_WORD + " tt/Monday";
 
     private final Predicate<Person> predicate;
     private final String resultMessage;

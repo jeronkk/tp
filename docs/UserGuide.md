@@ -4,12 +4,31 @@
   pageNav: 3
 ---
 
-# TutorProMax
+# 🧑‍🏫 TutorProMax
 
-TutorProMax is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+TutorProMax is a **desktop app for managing contacts, built specifically for private tutors  optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorProMax can get your contact management tasks more efficiently than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
+
+## Why Choose TutorProMax?
+
+TutorProMax isn't just another task management app — it's your ultimate companion for managing tutoring sessions and staying organized. Here's why you'll love it:
+
+- 📚 **Tailored for Tutors**  
+  Manage students, track lessons, set subject preferences, and manage tuition time with ease.
+
+- ⏱️ **Fast workflow**  
+  CLI commands let you manage your data quickly — perfect for fast typists.
+
+- 🔒 **Offline and Secure**  
+  No internet required. Your data stays private and local.
+
+- 🖥️ **Portable**  
+  Simple .jar file — no installation required.
+
+> 🚀 **TutorProMax helps you save time and stay organised!**
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -23,8 +42,13 @@ TutorProMax is a **desktop app for managing contacts, optimized for use via a Co
 1. Copy the file to the folder you want to use as the _home folder_ for TutorProMax.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tutorpromax.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   - ```bash 
+     cd path/to/your/folder
+     java -jar tutorpromax.jar
+   - Alternatively, for Mac users, double-click on the folder where the jar file is in, and select `open terminal at the filder`
+   
+3. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+      ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -97,7 +121,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]…�
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 tt/Monday, 1000-1200`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 tt/Friday, 1400-1600 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 tt/Friday, 1400-1600 t/criminal`
 
 ### Listing all persons : `list`
 
@@ -105,14 +129,28 @@ Shows a list of all persons in the address book. Specify a subject or tuition ti
 list only persons with matching subject or tuition time. If both subject and tuition time are specified,
 both filter will be applied and only persons that fulfil both criteria will be shown.
 
+<<<<<<< HEAD
 Format: `list [t/SUBJECT] [tt/TUITIONTIME]`
+=======
+Format:
+* `list` - Lists all students
+* `list t/[keyword_tag]` - Lists by tag
+* `list tt/[keyword_tuition]` - Lists by tuition day (e.g. `Monday`, `mon`, etc.)
+
+**Accepted day formats:** You can use **full day names** (`Monday`, `Tuesday`, ...) or **short forms** (`mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `sun`). The search is **case-insensitive**.
+>>>>>>> master
 
 Examples:
 * `list` Lists all persons in the address book.
 * `list t/math` Lists all persons with keyword math in their tags (subjects).
+<<<<<<< HEAD
 * `list tt/monday` Lists all persons with keyword monday in their tuition times.
 * `list t/math tt/Monday, 1000-1200` Lists all persons with keyword math in their 
 tags (subjects) and tuition time of Monday, 1000-1200.
+=======
+* `list tt/monday` Lists all persons with tuition on Monday
+* `list tt/mon` – Also lists persons with tuition on Monday (short form).
+>>>>>>> master
 
 ### Editing a person : `edit`
 
@@ -152,12 +190,14 @@ Examples:
 ### Sorting : `sort`
 Sort the address book based on field specified.
 
-Format: `sort [by] field asc/desc`
+Valid fields: `name`, `phone`, `email`, `address`, `tuition`, `tag`
+
+Format: `sort field asc/desc`
 
 Examples:
 * `sort name asc` Sorts address book using ascending order of names.
 * `sort tuition desc` Sorts address book using descending order of tuition times.
-* `sort by email asc` Sorts address book using ascending order of email addresses. 
+* `sort email asc` Sorts address book using ascending order of email addresses. 
 
 <box type="warning" seamless>
 
@@ -166,6 +206,8 @@ Examples:
 ❌ If you try to sort by an invalid field, TutorProMax will return:
 
 `Invalid sort field. Valid fields: name, phone, email, address, tuition, tag`
+
+</box> 
 
 ### Deleting a person : `delete`
 
@@ -227,7 +269,23 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install **TutorProMax** on the new computer.
+
+- Run the app once to generate the necessary data folder.
+
+- On your original computer, navigate to the folder:
+`[TutorProMax]/data/addressbook.json`
+
+- Copy the `addressbook.json` file (this contains your data) to a USB drive or cloud storage.
+
+- On the new computer, go to the same directory:
+`[TutorProMax]/data/`
+
+- Replace the newly created `addressbook.json` with your copied version.
+
+- Launch TutorProMax. Your previously saved contacts should now be visible.
+
+<box type="info" seamless> **Tip:** If you're unsure where the data folder is located, it is usually in the installation directory where **TutorProMax** was unzipped or installed. You can also check `preferences.json` for the exact path. </box>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -247,6 +305,6 @@ Action     | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**Sort**   | `sort [by] field asc/desc`<br> e.g. `sort name asc`
+**Sort**   | `sort [field] asc/desc`<br> e.g. `sort name asc`
 **List**   | `list [t/SUBJECT] [tt/TUITIONTIME]` <br> e.g. `list` <br> e.g. `list t/Math` <br> e.g. `list tt/Monday` or `list tt/mon`
 **Help**   | `help`
