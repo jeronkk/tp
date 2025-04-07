@@ -20,9 +20,9 @@ import seedu.address.model.person.TuitionTimeContainsKeywordPredicate;
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
-    private static final String MESSAGE_SUCCESS_1 = "Listed all persons with tag t/";
+    private static final String MESSAGE_SUCCESS_1 = "Listed all persons with subject t/";
     private static final String MESSAGE_SUCCESS_2 = "Listed all persons with tuition time on tt/";
-    private static final String MESSAGE_SUCCESS_3 = "Listed all persons with tag t/ and tuition time on tt/";
+    private static final String MESSAGE_SUCCESS_3 = "Listed all persons with subject t/ and tuition time on tt/";
     private String message;
 
     /**

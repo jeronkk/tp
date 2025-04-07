@@ -102,14 +102,17 @@ Examples:
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book. Specify a subject or tuition time with keyword to 
-list only persons with matching subject or tuition time.
+list only persons with matching subject or tuition time. If both subject and tuition time are specified,
+both filter will be applied and only persons that fulfil both criteria will be shown.
 
-Format: `list [keyword]`
+Format: `list [t/SUBJECT] [tt/TUITIONTIME]`
 
 Examples:
 * `list` Lists all persons in the address book.
 * `list t/math` Lists all persons with keyword math in their tags (subjects).
-* `list tt/monday` Lists all persons with keyword monday in their tuition times
+* `list tt/monday` Lists all persons with keyword monday in their tuition times.
+* `list t/math tt/Monday, 1000-1200` Lists all persons with keyword math in their 
+tags (subjects) and tuition time of Monday, 1000-1200.
 
 ### Editing a person : `edit`
 
@@ -245,5 +248,5 @@ Action     | Format, Examples
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Sort**   | `sort [by] field asc/desc`<br> e.g. `sort name asc`
-**List**   | `list [keyword]` <br> e.g. `list` <br> e.g. `list t/Math` <br> e.g. `list tt/Monday or list tt/mon`
+**List**   | `list [t/SUBJECT] [tt/TUITIONTIME]` <br> e.g. `list` <br> e.g. `list t/Math` <br> e.g. `list tt/Monday` or `list tt/mon`
 **Help**   | `help`
