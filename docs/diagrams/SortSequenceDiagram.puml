@@ -1,5 +1,12 @@
 @startuml
-!include style.puml
+' Optional: Define colors if style.puml is missing
+!define LOGIC_COLOR_T1 #FFDDDD
+!define MODEL_COLOR_T1 #DDFFDD
+!define UTIL_COLOR_T1 #DDDDFF
+!define LOGIC_COLOR #FFCCCC
+!define MODEL_COLOR #CCFFCC
+!define UTIL_COLOR #CCCCFF
+
 skinparam ArrowFontStyle plain
 
 box Logic LOGIC_COLOR_T1
@@ -18,7 +25,7 @@ box Utility UTIL_COLOR_T1
 participant ":TuitionTimeUtil" as TuitionTimeUtil UTIL_COLOR
 end box
 
-[-> LogicManager : execute("sort name asc")
+-> LogicManager : execute("sort name asc")
 activate LogicManager
 
 LogicManager -> AddressBookParser : parseCommand("sort name asc")
@@ -50,7 +57,6 @@ activate SortCommand
 SortCommand -> Model : sortFilteredPersonList(comparator)
 activate Model
 
-' Optional: Sorting by tuition time
 Model -> TuitionTimeUtil : getSortKey("Tuesday, 1800-2000")
 activate TuitionTimeUtil
 TuitionTimeUtil --> Model : "2_1800"
@@ -73,6 +79,6 @@ deactivate CommandResult
 SortCommand --> LogicManager : r
 deactivate SortCommand
 
-[<-- LogicManager
+<- LogicManager
 deactivate LogicManager
 @enduml

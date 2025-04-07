@@ -158,15 +158,16 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### List Command
 
-#### Proposed Implementation
+The sequence diagram below illustrates how the list command is processed when the user enters a command such as `list`, `list t/Math`, `list tt/Monday`, `list tt/mon` . 
+This command allows users to either 
+- list all student via `list`
+- list all students with a specific subject specified after `t/`.
+  - example: `list t/math`, `list t/Science`.
+- list all students with a tuition time on a specific day specified after prefix `tt/`.
+  - example: `list tt/Monday`, `list tt/mon`, `list tt/Monday, 1000-1200`
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-#### List Command
-
-The sequence diagram below illustrates how the list command is processed when the user enters a command such as list t/Math. 
 The process involves the following key objects:
 - LogicManager parses the user input into a ListCommand.
 
@@ -179,11 +180,11 @@ The process involves the following key objects:
 <puml src="diagrams/ListSequenceDiagram.puml" alt="ListCommand Sequence Diagram" />
 
 
-#### Sort Command
+### Sort Command
 
 The `sort` feature allows tutors to organize the student list based on specific fields such as name, address, email, phone, subject, or tuition timing. This improves usability by enabling tutors to view student data in a desired order, which is especially useful when managing many students.
 
-The `sort` command is implemented using the `SortCommand` class, which accepts a field keyword (e.g., `name`, `t/Math`) and applies the corresponding comparator to the address book list. The command then updates the filtered person list with the sorted result.
+The `sort` command is implemented using the `SortCommand` class, which accepts a field keyword (e.g., `name`, `phone`) and applies the corresponding comparator to the address book list. The command then updates the filtered person list with the sorted result.
 
 The sorting logic is encapsulated in the `PersonComparators` utility class, which contains static comparators for each sortable field. This separation of concerns makes it easier to maintain and extend.
 
@@ -210,12 +211,6 @@ If an invalid or unsupported field is provided, the command will return an error
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
-
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -246,7 +241,6 @@ _{Explain here how the data archiving feature will be implemented}_
 Whether they are juggling multiple students, managing lesson time, or students' subjects, TutorProMax keeps everything organised in one place. 
 With intuitive features like scheduling, reminders, and offline support, it empowers tutors to focus more on teaching and less on administrative work. Say goodbye to cluttered spreadsheets and scattered notes — TutorProMax helps tutors run their tutoring business like pros. 
 - It is especially suited for tutors who can type fast and prefer a **Command Line Interface (CLI)** over graphical interfaces, allowing for faster, more efficient workflows.
-
 
 
 ### User stories
@@ -501,6 +495,13 @@ Below are the manual test cases for verifying each feature of **TutorProMax**.
 
 ---
 
+### Command History
+
+- Press `↑` and `↓` keys after entering commands.
+- **Expected:** Cycles through previously entered commands.
+
+---
+
 ### Saving and Editing Data
 
 #### 1. Data Persistence
@@ -513,17 +514,3 @@ Below are the manual test cases for verifying each feature of **TutorProMax**.
 - Manually modify a valid entry.
 - Restart the app.
 - **Expected:** Updated values are reflected.
-
-#### Corrupted File
-- Add invalid JSON syntax.
-- Restart app.
-- **Expected:** App discards data and starts fresh.
-
----
-
-### Command History
-
-- Press `↑` and `↓` keys after entering commands.
-- **Expected:** Cycles through previously entered commands.
-
----
