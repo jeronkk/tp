@@ -33,7 +33,7 @@ public class Phone {
     public Phone(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+        this.value = standardizePhone(phone);
     }
 
     /**
@@ -53,6 +53,19 @@ public class Phone {
             return phoneUtil.isPossibleNumber(parsed) && phoneUtil.isValidNumber(parsed);
         } catch (NumberParseException e) {
             return false;
+        }
+    }
+
+    /**
+     * Converts the user input into a standardized international format (e.g. "+65 9123 4567").
+     */
+    private static String standardizePhone(String input) {
+        try {
+            String cleaned = input.replaceAll("\\s+", "").replaceAll("-", "");
+            Phonenumber.PhoneNumber parsed = phoneUtil.parse(cleaned, "SG");
+            return phoneUtil.format(parsed, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL);
+        } catch (NumberParseException e) {
+            throw new IllegalArgumentException("Invalid phone format: " + input, e);
         }
     }
 
