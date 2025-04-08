@@ -9,5 +9,4 @@ brvndonkoh also contributed significantly to the project’s reliability through
 
 Beyond implementation, brvndonkoh enhanced the Developer Guide with clear explanations and well-structured UML diagrams, making the internal workings of TutorProMax more accessible to future contributors. Their ability to bridge technical execution with clear documentation helped keep the team aligned and efficient throughout the project lifecycle.
 
----
 

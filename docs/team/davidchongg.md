@@ -10,5 +10,3 @@ Throughout the project, davidchongg was heavily involved in designing and implem
 Beyond implementing features, davidchongg played an active role in writing and maintaining high-coverage JUnit test suites, ensuring reliability across various command scenarios and edge cases. This contributed to the project's stability and reduced bugs during integration.
 
 In addition, davidchongg worked on refining the user and developer documentation—from updating usage instructions in the User Guide to detailing implementation logic and UML diagrams in the Developer Guide. Their clear and methodical documentation helped streamline onboarding and improved overall team collaboration.
-
----
