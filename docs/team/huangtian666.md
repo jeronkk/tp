@@ -1,6 +1,6 @@
 ## 👤 Huang Tian (huangtian666)
 
-Huang Tian is a key developer of **TutorBook**, the team’s address book application tailored for private tutors to manage students, sessions, and scheduling efficiently. As a core contributor, Huang Tian was heavily involved in the system architecture and feature implementation, contributing both to the frontend logic and backend model integration.
+Huang Tian is a key developer of **TutorProMax**, the team’s address book application tailored for private tutors to manage students, sessions, and scheduling efficiently. As a core contributor, Huang Tian was heavily involved in the system architecture and feature implementation, contributing both to the frontend logic and backend model integration.
 
 Throughout the project, Huang Tian worked extensively on designing and implementing key commands and features such as filtering student lists, managing lesson information, and integrating persistent data storage. Special focus was placed on ensuring that the commands were both user-friendly and consistent with the overall application logic. With a strong understanding of Java, data structures, and object-oriented design principles, Huang Tian played a vital role in refining the logic of complex commands such as `find`, `edit`, and `delete`, while also ensuring the integrity of the application model.
 
