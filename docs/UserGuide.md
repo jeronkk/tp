@@ -69,6 +69,61 @@ TutorProMax isn't just another task management app — it's your ultimate compan
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Parameters and Their Constraints
+
+This section outlines the validation rules for each parameter used in TutorProMax commands.
+
+### **Name**
+
+- **Allowed**:
+  - **Unicode letters** from various scripts (e.g., Latin, Chinese, Vietnamese).
+  - **Spaces**, as long as the entire name is not just spaces.
+  - **Digits**, but only when combined with letters (e.g., “peter the 2nd”). Purely numeric names are disallowed.
+  - **Standard punctuation** like apostrophes (`'`), hyphens (`-`), slashes (`/`), dots (`.`), etc.
+- **Disallowed**:
+    - **Empty** (e.g., `""`) or **spaces only** (e.g., `" "`).
+    - **Purely numeric** (e.g., `"12345"`).
+    - **Emojis** (e.g., `"🚀 Rocket"`).
+    - **Certain special symbols** on their own (e.g., `"^"`, `"peter*"`).
+- **Examples**:
+        `Nguyễn Văn A`, `张伟`, `Jean-Luc Picard`, `Vignesh S/O Muniyandi`, `Mary J. Blige`, `Dr. Tan`
+
+### **Phone**
+
+- **Format**: Must be recognized as a valid phone number.
+- **No letters**: Letters (`[A-Za-z]`) are disallowed.
+- **No consecutive spaces**: Cannot contain multiple spaces in a row.
+- **Must pass** [Google’s PhoneNumberUtil checks](https://github.com/google/libphonenumber).
+- **Examples**: `+65 9123 4567`, `91234567`, `+1 408-555-1234`
+
+### **Email**
+
+- **Format**: Must be in the form `local@domain`, with a valid domain name.
+- Allows alphanumeric and certain special characters for the local part, maximum of 64 characters.
+- Case-insensitive for the domain portion, maximum of 255 characters.
+- **Examples**: `alice@example.com`, `bob.smith@university.edu`, `JOHN_DOE@my-school.org`
+
+### **Address**
+
+- **Not Blank**: The address cannot be empty or consist only of spaces.
+- **Examples**:`John street, block 123, #01-01`, `12345 Maple Drive`
+
+### **Tuition Time**
+
+- **Required Format**: `<DAY>, <START_TIME>-<END_TIME>`
+    - **DAY** can be full (`Monday`, `Tuesday`, …) or short (`Mon`, `Tue`, …). Case‐insensitive.
+    - **START_TIME** and **END_TIME** in 24‐hour format (`HHMM`), e.g., `1000-1200`.
+- Crossing midnight is **not** supported (e.g., `2300-0000`).
+- **Examples**: `Friday, 1400-1600`, `Mon, 0900-1000`
+
+### **Tags**
+
+- **Optional**: A person can have zero or more tags.
+- Alphanumeric
+- **Examples**: `Math`, `Science`, `English`
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Features
 
 <box type="info" seamless>
@@ -122,6 +177,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]…�
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 tt/Monday, 1000-1200`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 tt/Friday, 1400-1600 t/criminal`
+  
+See [Parameters and Their Constraints](#parameters-and-their-constraints) for the exact rules each field must follow.
 
 ### Listing all persons : `list`
 
@@ -168,6 +225,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+See [Parameters and Their Constraints](#parameters-and-their-constraints) for the exact rules each field must follow.
 
 ### Locating persons by name: `find`
 
