@@ -1,6 +1,9 @@
+
 ## 👤 David Chong (davidchongg)
 
 **davidchongg** is a key developer of TutorProMax, a Java-based desktop application built to support private tutors in managing student information, lesson scheduling, and session tracking efficiently. As a core team member, davidchongg contributed meaningfully to both the backend model and the command logic, ensuring robust functionality and a seamless user experience.
+
+davidchongg is a key developer of TutorProMax, a Java-based desktop application built to support private tutors in managing student information, lesson scheduling, and session tracking efficiently. As a core team member, davidchongg contributed meaningfully to both the backend model and the command logic, ensuring robust functionality and a seamless user experience.
 
 Throughout the project, davidchongg was heavily involved in designing and implementing key features such as multi-criteria sorting, command history navigation, and enhancements to existing commands like `delete`, `edit`, and `find`. With a solid grasp of object-oriented programming and design patterns, davidchongg engineered clean, extensible logic that helped maintain consistency across the system.
 
