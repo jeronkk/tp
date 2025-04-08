@@ -158,15 +158,16 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### List Command
 
-#### Proposed Implementation
+The sequence diagram below illustrates how the list command is processed when the user enters a command such as `list`, `list t/Math`, `list tt/Monday`, `list tt/mon` . 
+This command allows users to either 
+- list all student via `list`
+- list all students with a specific subject specified after `t/`.
+  - example: `list t/math`, `list t/Science`.
+- list all students with a tuition time on a specific day specified after prefix `tt/`.
+  - example: `list tt/Monday`, `list tt/mon`, `list tt/Monday, 1000-1200`
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-#### List Command
-
-The sequence diagram below illustrates how the list command is processed when the user enters a command such as list t/Math. 
 The process involves the following key objects:
 - LogicManager parses the user input into a ListCommand.
 
@@ -179,11 +180,11 @@ The process involves the following key objects:
 <puml src="diagrams/ListSequenceDiagram.puml" alt="ListCommand Sequence Diagram" />
 
 
-#### Sort Command
+### Sort Command
 
 The `sort` feature allows tutors to organize the student list based on specific fields such as name, address, email, phone, subject, or tuition timing. This improves usability by enabling tutors to view student data in a desired order, which is especially useful when managing many students.
 
-The `sort` command is implemented using the `SortCommand` class, which accepts a field keyword (e.g., `name`, `t/Math`) and applies the corresponding comparator to the address book list. The command then updates the filtered person list with the sorted result.
+The `sort` command is implemented using the `SortCommand` class, which accepts a field keyword (e.g., `name`, `phone`) and applies the corresponding comparator to the address book list. The command then updates the filtered person list with the sorted result.
 
 The sorting logic is encapsulated in the `PersonComparators` utility class, which contains static comparators for each sortable field. This separation of concerns makes it easier to maintain and extend.
 
@@ -196,26 +197,6 @@ When the `sort` command is executed:
 If an invalid or unsupported field is provided, the command will return an error message explaining valid options.
 
 <puml src="diagrams/SortSequenceDiagram.puml" alt="SortCommand Sequence Diagram" />
-
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -235,11 +216,13 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* tutors who need to manage a significant number of contacts and lesson details
+* private tutors who need to manage a significant number of contacts and lesson details
+* private tutors who conduct weekly lessons to each student in the day
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* the context is **Singapore** where the form of communication is mainly in English
 
 **Value proposition**:  
 - **TutorProMax** is an all-in-one desktop assistant built specifically for tutors. 
@@ -248,22 +231,22 @@ With intuitive features like scheduling, reminders, and offline support, it empo
 - It is especially suited for tutors who can type fast and prefer a **Command Line Interface (CLI)** over graphical interfaces, allowing for faster, more efficient workflows.
 
 
-
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​  | I want to …​                       | So that I can…​                                                                    |
-|----------|----------|------------------------------------|------------------------------------------------------------------------------------|
-| `* * *`  | new user | see usage instructions             | refer to instructions when I forget how to use the App                             |
-| `* * *`  | user     | add a student                      | keep track of all students and can refer to their contact details when I need      |
-| `* * *`  | user     | delete a student                   | remove outdated or irrelevant student contact details                              |
-| `* * *`  | user     | view all students' contact details | easily access students’ information and retrieve their contact details efficiently |
-| `* * *`  | user     | find a student by his/her name     | locate details of students without having to go through the entire list            |
-| `* *`    | user     | edit a contact details             | update new information without having to go through the process of delete and add  |
-| `* *`    | user     | list lessons by date               | view all lessons scheduled on a particular day                                     |
-| `* *`    | user     | list students by subject                       | view all students with a filtered subject                                         |
-| `* *`    | user     | sort students according to a field I specified | view all student a in particular order for to find them more easily               |
+| Priority | As a …​  | I want to …​                                    | So that I can…​                                                                                        |
+|----------|----------|-------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| `* * *`  | new user | see usage instructions                          | refer to instructions when I forget how to use the App                                                 |
+| `* * *`  | user     | add a student                                   | keep track of all students and can refer to their contact details when I need                          |
+| `* * *`  | user     | delete a student                                | remove outdated or irrelevant student contact details                                                  |
+| `* * *`  | user     | view all students' contact details              | easily access students’ information and retrieve their contact details efficiently                     |
+| `* * *`  | user     | find a student by his/her name                  | locate details of students without having to go through the entire list                                |
+| `* *`    | user     | edit a contact details                          | update new information without having to go through the process of delete and add                      |
+| `* *`    | user     | list lessons by date                            | view all lessons scheduled on a particular day                                                         |
+| `* *`    | user     | list students by subject                        | view all students with a filtered subject                                                              |
+| `* *`    | user     | sort students according to a field I specified  | view all student a in particular order for to find them more easily                                    |
+| `* *`    | user     | Press `↑` and `↓` keys after entering commands  | navigate the previous commands more easily especially if i want to add, delete, edit multiple students |
 
 
 ### Use cases
@@ -325,9 +308,88 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. No matching student found
 
-* 2a1. TutorProMax displays a message indicating that no student matches the given name
+  * 2a1. TutorProMax displays a message indicating that no student matches the given name
 
-    Use case ends
+      Use case ends
+
+**Use case: List persons**
+
+**MSS**
+
+1.  User requests to list persons
+2.  TutorProMax lists all students in the address book.
+
+    Use case ends.
+
+**Extensions**
+* 1a. User specifies a tag keyword (e.g. `list t/math`).
+  * 1a1. TutorProMax lists students whose tags contain the specified keyword.
+    Use case ends.
+* 1b. User specifies a tuition day keyword (e.g. `list tt/monday`).
+  * 1b1. TutorProMax lists students whose tuition time contains the specified day.  
+    Use case ends. 
+* 1c. User specifies both tag and tuition time (e.g. `list tt/monday t/math`).
+  * 1c1. TutorProMax lists students who match both the tuition day and tag.
+    Use case ends.
+* 1d. No students match the given filter(s)
+  * 1d1. TutorProMax shows a message indicating no matching students found.  
+  Use case ends.
+* 1e. User inputs an invalid format (e.g. `list tt/mondae`)
+  * 1e1. TutorProMax shows an error message indicating invalid input.  
+  Use case ends.
+
+**Use Case: Sort students**
+
+**MSS**
+
+1. User requests to sort students by a specified field and order.
+2. TutorProMax sorts and displays the student list accordingly.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User specifies a valid field and order (e.g. `sort name asc`)
+    * 1a1. TutorProMax sorts the address book using the given field and order.  
+      Use case ends.
+
+* 1b. User specifies an invalid field (e.g. `sort grade asc`)
+    * 1b1. TutorProMax shows an error message:  
+      `Invalid sort field. Valid fields: name, phone, email, address, tuition, tag`  
+      Use case ends.
+
+* 1c. User omits sort order (e.g. `sort name`)
+    * 1c1. TutorProMax shows an error message indicating invalid command format.  
+      Use case ends.
+
+* 1d. User inputs an invalid sort order (e.g. `sort name upwards`)
+    * 1d1. TutorProMax shows an error message indicating sort order must be `asc` or `desc`.  
+      Use case ends.
+
+**Use Case: Edit a student**
+
+**MSS**
+
+1. User requests to edit a specific student by specifying their index in the list.
+2. TutorProMax updates the student’s details with the provided fields.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The specified index is invalid (e.g. index does not exist in the current list)
+    * 1a1. TutorProMax shows an error message indicating the index is invalid.  
+      Use case ends.
+
+* 1b. No fields are specified for editing (e.g. `edit 2`)
+    * 1b1. TutorProMax shows an error message indicating that at least one field must be provided.  
+      Use case ends.
+
+* 1c. User clears all tags by specifying `t/` without any tags
+    * 1c1. TutorProMax removes all tags from the student.  
+      Use case ends.
+
+* 1d. User specifies invalid values (e.g. email without '@', invalid phone number, etc.)
+    * 1d1. TutorProMax shows an appropriate validation error message.  
+      Use case ends.
 
 
 ### Non-Functional Requirements
@@ -501,6 +563,13 @@ Below are the manual test cases for verifying each feature of **TutorProMax**.
 
 ---
 
+### Command History
+
+- Press `↑` and `↓` keys after entering commands.
+- **Expected:** Cycles through previously entered commands.
+
+---
+
 ### Saving and Editing Data
 
 #### 1. Data Persistence
@@ -513,17 +582,3 @@ Below are the manual test cases for verifying each feature of **TutorProMax**.
 - Manually modify a valid entry.
 - Restart the app.
 - **Expected:** Updated values are reflected.
-
-#### Corrupted File
-- Add invalid JSON syntax.
-- Restart app.
-- **Expected:** App discards data and starts fresh.
-
----
-
-### Command History
-
-- Press `↑` and `↓` keys after entering commands.
-- **Expected:** Cycles through previously entered commands.
-
----

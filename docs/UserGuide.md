@@ -6,7 +6,7 @@
 
 # 🧑‍🏫 TutorProMax
 
-TutorProMax is a **desktop app for managing contacts, built specifically for private tutors  optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorProMax can get your contact management tasks more efficiently than traditional GUI apps.
+TutorProMax is a **desktop app for managing contacts, built specifically for private tutors in Singapore optimised for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorProMax can get your contact management tasks more efficiently than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -69,6 +69,61 @@ TutorProMax isn't just another task management app — it's your ultimate compan
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Parameters and Their Constraints
+
+This section outlines the validation rules for each parameter used in TutorProMax commands.
+
+### **Name**
+
+- **Allowed**:
+  - **Unicode letters** from various scripts (e.g., Latin, Chinese, Vietnamese).
+  - **Spaces**, as long as the entire name is not just spaces.
+  - **Digits**, but only when combined with letters (e.g., “peter the 2nd”). Purely numeric names are disallowed.
+  - **Standard punctuation** like apostrophes (`'`), hyphens (`-`), slashes (`/`), dots (`.`), etc.
+- **Disallowed**:
+    - **Empty** (e.g., `""`) or **spaces only** (e.g., `" "`).
+    - **Purely numeric** (e.g., `"12345"`).
+    - **Emojis** (e.g., `"🚀 Rocket"`).
+    - **Certain special symbols** on their own (e.g., `"^"`, `"peter*"`).
+- **Examples**:
+        `Nguyễn Văn A`, `张伟`, `Jean-Luc Picard`, `Vignesh S/O Muniyandi`, `Mary J. Blige`, `Dr. Tan`
+
+### **Phone**
+
+- **Format**: Must be recognized as a valid phone number.
+- **No letters**: Letters (`[A-Za-z]`) are disallowed.
+- **No consecutive spaces**: Cannot contain multiple spaces in a row.
+- **Must pass** [Google’s PhoneNumberUtil checks](https://github.com/google/libphonenumber).
+- **Examples**: `+65 9123 4567`, `91234567`, `+1 408-555-1234`
+
+### **Email**
+
+- **Format**: Must be in the form `local@domain`, with a valid domain name.
+- Allows alphanumeric and certain special characters for the local part, maximum of 64 characters.
+- Case-insensitive for the domain portion, maximum of 255 characters.
+- **Examples**: `alice@example.com`, `bob.smith@university.edu`, `JOHN_DOE@my-school.org`
+
+### **Address**
+
+- **Not Blank**: The address cannot be empty or consist only of spaces.
+- **Examples**:`John street, block 123, #01-01`, `12345 Maple Drive`
+
+### **Tuition Time**
+
+- **Required Format**: `<DAY>, <START_TIME>-<END_TIME>`
+    - **DAY** can be full (`Monday`, `Tuesday`, …) or short (`Mon`, `Tue`, …). Case‐insensitive.
+    - **START_TIME** and **END_TIME** in 24‐hour format (`HHMM`), e.g., `1000-1200`.
+- Crossing midnight is **not** supported (e.g., `2300-0000`).
+- **Examples**: `Friday, 1400-1600`, `Mon, 0900-1000`
+
+### **Tags**
+
+- **Optional**: A person can have zero or more tags.
+- Alphanumeric
+- **Examples**: `Math`, `Science`, `English`
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Features
 
 <box type="info" seamless>
@@ -122,24 +177,37 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]…�
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 tt/Monday, 1000-1200`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 tt/Friday, 1400-1600 t/criminal`
+  
+See [Parameters and Their Constraints](#parameters-and-their-constraints) for the exact rules each field must follow.
 
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book. Specify a subject or tuition time with keyword to 
-list only persons with matching subject or tuition time.
+list only persons with matching subject or tuition time. If both subject and tuition time are specified,
+both filter will be applied and only persons that fulfil both criteria will be shown.
 
+<<<<<<< HEAD
+Format: `list [t/SUBJECT] [tt/TUITIONTIME]`
+=======
 Format:
 * `list` - Lists all students
 * `list t/[keyword_tag]` - Lists by tag
 * `list tt/[keyword_tuition]` - Lists by tuition day (e.g. `Monday`, `mon`, etc.)
 
 **Accepted day formats:** You can use **full day names** (`Monday`, `Tuesday`, ...) or **short forms** (`mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `sun`). The search is **case-insensitive**.
+>>>>>>> master
 
 Examples:
 * `list` Lists all persons in the address book.
 * `list t/math` Lists all persons with keyword math in their tags (subjects).
+<<<<<<< HEAD
+* `list tt/monday` Lists all persons with keyword monday in their tuition times.
+* `list t/math tt/Monday, 1000-1200` Lists all persons with keyword math in their 
+tags (subjects) and tuition time of Monday, 1000-1200.
+=======
 * `list tt/monday` Lists all persons with tuition on Monday
 * `list tt/mon` – Also lists persons with tuition on Monday (short form).
+>>>>>>> master
 
 ### Editing a person : `edit`
 
@@ -157,6 +225,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+See [Parameters and Their Constraints](#parameters-and-their-constraints) for the exact rules each field must follow.
 
 ### Locating persons by name: `find`
 
@@ -289,11 +359,11 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 tt/Monday, 1000-1200 t/friend t/colleague`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS tt/TUITION_TIME [t/TAG]…​` <br> e.g., `add n/James Ho p/92224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 tt/Monday, 1000-1200 t/friend t/colleague`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Sort**   | `sort [field] asc/desc`<br> e.g. `sort name asc`
-**List**   | `list [keyword]` <br> e.g. `list` <br> e.g. `list t/Math` <br> e.g. `list tt/Monday or list tt/mon`
+**List**   | `list [t/SUBJECT] [tt/TUITIONTIME]` <br> e.g. `list` <br> e.g. `list t/Math` <br> e.g. `list tt/Monday` or `list tt/mon`
 **Help**   | `help`

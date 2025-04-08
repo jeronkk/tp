@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -20,6 +21,22 @@ public class PhoneTest {
     }
 
     @Test
+    public void constructor_standardizesValidPhone() {
+        Phone phone = new Phone("+65 9123-4567");
+        assertEquals("+65 9123 4567", phone.value);
+    }
+
+    @Test
+    public void constructor_rejectsInvalidPhone() {
+        assertThrows(IllegalArgumentException.class, () -> new Phone("abc-123"));
+    }
+
+    @Test
+    public void standardizePhone_invalidNumber_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> Phone.standardizePhone("+++++"));
+    }
+
+    @Test
     public void isValidPhone() {
         // null phone number
         assertFalse(Phone.isValidPhone(null)); // null
@@ -29,9 +46,10 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone(" ")); // spaces only
         assertFalse(Phone.isValidPhone("91")); // too short (even for SG)
         assertFalse(Phone.isValidPhone("phone")); // non-numeric
-        assertFalse(Phone.isValidPhone("9011p041")); // alphabet in digits
+        assertFalse(Phone.isValidPhone("9381e9173")); // alphabet in digits
         assertFalse(Phone.isValidPhone("+1 123-4567")); // US number too short (missing area code)
         assertFalse(Phone.isValidPhone("+999 12345678")); // invalid country code
+        assertFalse(Phone.isValidPhone("9123  4567")); // multiple consecutive spaces
 
         // valid phone numbers
         assertTrue(Phone.isValidPhone("91234567")); // valid SG local
