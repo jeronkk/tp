@@ -6,7 +6,7 @@
 
 # 🧑‍🏫 TutorProMax
 
-TutorProMax is a **desktop app for managing contacts, built specifically for private tutors  optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorProMax can get your contact management tasks more efficiently than traditional GUI apps.
+TutorProMax is a **desktop app for managing contacts, built specifically for private tutors in Singapore optimised for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorProMax can get your contact management tasks more efficiently than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />

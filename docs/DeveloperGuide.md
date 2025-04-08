@@ -198,20 +198,6 @@ If an invalid or unsupported field is provided, the command will return an error
 
 <puml src="diagrams/SortSequenceDiagram.puml" alt="SortCommand Sequence Diagram" />
 
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -230,11 +216,13 @@ If an invalid or unsupported field is provided, the command will return an error
 
 **Target user profile**:
 
-* tutors who need to manage a significant number of contacts and lesson details
+* private tutors who need to manage a significant number of contacts and lesson details
+* private tutors who conduct weekly lessons to each student in the day
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* the context is **Singapore** where the form of communication is mainly in English
 
 **Value proposition**:  
 - **TutorProMax** is an all-in-one desktop assistant built specifically for tutors. 
