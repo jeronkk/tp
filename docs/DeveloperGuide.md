@@ -235,17 +235,18 @@ With intuitive features like scheduling, reminders, and offline support, it empo
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​  | I want to …​                       | So that I can…​                                                                    |
-|----------|----------|------------------------------------|------------------------------------------------------------------------------------|
-| `* * *`  | new user | see usage instructions             | refer to instructions when I forget how to use the App                             |
-| `* * *`  | user     | add a student                      | keep track of all students and can refer to their contact details when I need      |
-| `* * *`  | user     | delete a student                   | remove outdated or irrelevant student contact details                              |
-| `* * *`  | user     | view all students' contact details | easily access students’ information and retrieve their contact details efficiently |
-| `* * *`  | user     | find a student by his/her name     | locate details of students without having to go through the entire list            |
-| `* *`    | user     | edit a contact details             | update new information without having to go through the process of delete and add  |
-| `* *`    | user     | list lessons by date               | view all lessons scheduled on a particular day                                     |
-| `* *`    | user     | list students by subject                       | view all students with a filtered subject                                         |
-| `* *`    | user     | sort students according to a field I specified | view all student a in particular order for to find them more easily               |
+| Priority | As a …​  | I want to …​                                    | So that I can…​                                                                                        |
+|----------|----------|-------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| `* * *`  | new user | see usage instructions                          | refer to instructions when I forget how to use the App                                                 |
+| `* * *`  | user     | add a student                                   | keep track of all students and can refer to their contact details when I need                          |
+| `* * *`  | user     | delete a student                                | remove outdated or irrelevant student contact details                                                  |
+| `* * *`  | user     | view all students' contact details              | easily access students’ information and retrieve their contact details efficiently                     |
+| `* * *`  | user     | find a student by his/her name                  | locate details of students without having to go through the entire list                                |
+| `* *`    | user     | edit a contact details                          | update new information without having to go through the process of delete and add                      |
+| `* *`    | user     | list lessons by date                            | view all lessons scheduled on a particular day                                                         |
+| `* *`    | user     | list students by subject                        | view all students with a filtered subject                                                              |
+| `* *`    | user     | sort students according to a field I specified  | view all student a in particular order for to find them more easily                                    |
+| `* *`    | user     | Press `↑` and `↓` keys after entering commands  | navigate the previous commands more easily especially if i want to add, delete, edit multiple students |
 
 
 ### Use cases
